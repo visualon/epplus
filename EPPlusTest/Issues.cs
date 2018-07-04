@@ -42,6 +42,38 @@ namespace EPPlusTest
         }
 
         /// <summary>
+        /// Issue #249: Enhancement: Extend ExcelTable class to include table comments
+        /// </summary>
+        [TestMethod]
+        public void Issue249()
+        {
+#if !Core
+            var dir = AppDomain.CurrentDomain.BaseDirectory;
+#else
+            var dir = AppContext.BaseDirectory;
+#endif
+            var file = Path.Combine(dir, "Workbooks", "NvPr.xlsx");
+            Assert.IsTrue(File.Exists(file));
+
+            using (var pkg = new ExcelPackage(new FileInfo(file)))
+            {
+                var tbls = pkg.Workbook.Worksheets.First().Tables;
+                Assert.IsNotNull(tbls);
+                Assert.AreEqual(1, tbls.Count);
+
+                var tbl = tbls.First();
+                Assert.IsNotNull(tbl.Comment);
+                Assert.AreEqual("Luke, I am your father... seriously...", tbl.Comment);
+
+                var cold = tbl.Comment;
+                tbl.Comment = "NOOOOOOOOO";
+                Assert.AreNotEqual(cold, tbl.Comment);
+
+                //pkg.SaveAs(new FileInfo("NvPr_#249.xlsx"));
+            }
+        }
+
+        /// <summary>
         /// Issue #250: Enhancement: Expose attributes of Non-Visual Properties (DrawingML)
         /// </summary>
         [TestMethod]
