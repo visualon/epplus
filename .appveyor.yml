@@ -32,7 +32,6 @@ configuration: Release
 
 before_build:
   - dotnet --version
-  - dotnet restore --verbosity m EPPlus.Core.sln
 
 build:
   verbosity: minimal
@@ -47,6 +46,8 @@ for:
       - image: Visual Studio 2017
   build:
     publish_nuget: true
+  before_build:
+    - dotnet restore --verbosity m EPPlus.Core.sln
 
 test:
   assemblies:
