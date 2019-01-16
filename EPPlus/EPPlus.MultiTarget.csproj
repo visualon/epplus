@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net35;net40</TargetFrameworks>
-    <TargetFrameworks Condition="' $(OS)' == 'Unix'">netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">netstandard2.0</TargetFrameworks>
     <AssemblyVersion>4.5.3.1</AssemblyVersion>
     <FileVersion>4.5.3.1</FileVersion>
     <Version>4.5.3.1</Version>

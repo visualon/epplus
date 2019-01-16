@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net46</TargetFrameworks>
-    <TargetFrameworks Condition="' $(OS)' == 'Unix'">netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;net46</TargetFrameworks>
+    <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">netcoreapp2.1</TargetFrameworks>
     <RootNamespace>EPPlusTest</RootNamespace>
     <AssemblyName>EPPlusTest</AssemblyName>
     <SignAssembly>True</SignAssembly>
@@ -15,7 +15,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
-    <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.0'">
+    <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.1'">
         <DefineConstants>$(DefineConstants);Core</DefineConstants>
     </PropertyGroup>
 
@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="4.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.11" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.11" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
