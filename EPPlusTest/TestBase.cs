@@ -49,12 +49,13 @@ namespace EPPlusTest
                     }
                 }
             }
-            
+
             //_worksheetPath = Path.Combine(Path.GetTempPath(), @"EPPlus worksheets");
-            //if (!Directory.Exists(_worksheetPath))
-            //{
-            //    Directory.CreateDirectory(_worksheetPath);
-            //}
+            if (!Directory.Exists(_worksheetPath))
+            {
+                _worksheetPath = Path.Combine(Path.GetTempPath(), @"EPPlus_worksheets");
+                Directory.CreateDirectory(_worksheetPath);
+            }
             var di=new DirectoryInfo(_worksheetPath);            
             _worksheetPath = di.FullName + "\\";
 
