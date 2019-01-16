@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net35;net40</TargetFrameworks>
+    <TargetFrameworks Condition="' $(OS)' == 'Unix'">netstandard2.0</TargetFrameworks>
     <AssemblyVersion>4.5.3.1</AssemblyVersion>
     <FileVersion>4.5.3.1</FileVersion>
     <Version>4.5.3.1</Version>
@@ -54,7 +55,7 @@ Changes
 * Enabled worksheetcharts to use a pivottable as source by adding a pivotTableSource parameter to the AddChart method of the Worksheets collection
 * Pmt function
 * And lots of bugfixes, see https://github.com/JanKallman/EPPlus/commits/master
-      
+
 4.5.2.1
 * Upgraded System.Drawing.Common for .NET Core to 4.5.0
 * Fixed problem with Apostrophe in worksheet name
@@ -123,7 +124,7 @@ This property can be set via the appsettings.json file in .Net Core or the app.c
 * And fixed a lot of issues. See http://epplus.codeplex.com/SourceControl/list/changesets for more details
 
 4.0.4 Fixes
-* Added functions Daverage, Dvar Dvarp, DMax, DMin DSum,  DGet, DCount and DCountA 
+* Added functions Daverage, Dvar Dvarp, DMax, DMin DSum,  DGet, DCount and DCountA
 * Exposed the formula parser logging functionality via FormulaParserManager.
 * And fixed a lot of issues. See http://epplus.codeplex.com/SourceControl/list/changesets for more details
 
@@ -142,7 +143,7 @@ This property can be set via the appsettings.json file in .Net Core or the app.c
 4.0.1 Fixes
 * VBA unreadable content
 * Fixed a few issues with InsertRow and DeleteRow
-* Fixed bug in Average and AverageA 
+* Fixed bug in Average and AverageA
 * Handling of Div/0 in functions
 * Fixed VBA CodeModule error when copying a worksheet.
 * Value decoding when reading str element for cell value.
@@ -197,10 +198,10 @@ Beta 2 Changes
 * Added locks to the cell store for access by multiple threads.
 * Implemented Indirect function
 * Used DisplayNameAttribute to generate column headers from LoadFromCollection
-* Rewrote ExcelRangeBase.Copy function. 
+* Rewrote ExcelRangeBase.Copy function.
 * Added caching to Save ZipStream for Cells and shared strings to speed up the Save method.
 * Added Missing InsertColumn and DeleteColumn
-* Added pull request to support Date1904 
+* Added pull request to support Date1904
 * Added pull request ExcelWorksheet. LoadFromDataReader
 
 Release Candidate changes
@@ -221,7 +222,7 @@ Release Candidate changes
     <AssemblyOriginatorKeyFile>OpenOfficeXml.snk</AssemblyOriginatorKeyFile>
     <NeutralLanguage />
   </PropertyGroup>
- 
+
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>Core;STANDARD20</DefineConstants>
   </PropertyGroup>
@@ -259,7 +260,7 @@ Release Candidate changes
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40'">
     <Reference Include="PresentationCore" />
     <Reference Include="System" />

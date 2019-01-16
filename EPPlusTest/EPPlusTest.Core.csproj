@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0;net46</TargetFrameworks>
+    <TargetFrameworks Condition="' $(OS)' == 'Unix'">netcoreapp2.0</TargetFrameworks>
     <RootNamespace>EPPlusTest</RootNamespace>
     <AssemblyName>EPPlusTest</AssemblyName>
     <SignAssembly>True</SignAssembly>
