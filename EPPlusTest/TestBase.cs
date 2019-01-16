@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml;
 using System.IO;
@@ -95,6 +95,13 @@ namespace EPPlusTest
                 fi.Delete();
             }
             _pck.SaveAs(fi);
+        }
+
+        [AssemblyInitialize]
+        public static void BeforeClass(TestContext tc)
+        {
+            Console.WriteLine("Switching to en-us locale");
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
     }
 }
