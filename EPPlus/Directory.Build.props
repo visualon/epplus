@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
+
+        <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+        <PackageIconUrl>https://visualon.github.io/img/nuget.png</PackageIconUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+        <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35' and  '$(MSBuildRuntimeType)' == 'Core'">C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MinVer" Version="1.0.0-beta.4" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+    </ItemGroup>
+</Project>
