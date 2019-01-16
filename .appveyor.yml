@@ -1,0 +1,44 @@
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+  - dev
+skip_tags: true
+max_jobs: 1
+skip_commits:
+ files:
+   - README.md
+   - CHANGELOG.md
+   - .editorconfig
+   - .gitignore
+
+image: Visual Studio 2017
+
+cache:
+  - '%USERPROFILE%\.nuget\packages -> **\*.csproj, **\Directory.Build.props, **\Directory.Build.targets'
+
+init:
+  - git config --global core.autocrlf true
+
+nuget:
+  account_feed: false
+  project_feed: true
+  disable_publish_on_pr: true
+
+configuration: Release
+
+before_build:
+  - dotnet --version
+  - dotnet restore --verbosity m
+
+build:
+  verbosity: minimal
+  project: EPPlus.Core.sln
+  publish_nuget: true
+  publish_nuget_symbols: false
+
+test:
+  assemblies:
+    only:
+      - 'EPPlusTest\bin\**\EPPlusTest.dll'
