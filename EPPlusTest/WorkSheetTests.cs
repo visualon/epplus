@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -3015,22 +3015,32 @@ namespace EPPlusTest
             Thread.CurrentThread.CurrentCulture = us;
 #endif
             double usEoMonth = 0d, usEdate = 0d;
+            Exception ex = null;
             var thread = new Thread(delegate ()
             {
-                using (var package = new ExcelPackage())
+                try
                 {
-                    var ws = package.Workbook.Worksheets.Add("Sheet1");
-                    ws.Cells[2, 2].Value = "1/15/2014";
-                    ws.Cells[3, 3].Formula = "EOMONTH(C2, 0)";
-                    ws.Cells[2, 3].Formula = "EDATE(B2, 0)";
-                    ws.Calculate();
-                    usEoMonth = Convert.ToDouble(ws.Cells[2, 3].Value);
-                    usEdate = Convert.ToDouble(ws.Cells[3, 3].Value);
+                    using (var package = new ExcelPackage())
+                    {
+                        var ws = package.Workbook.Worksheets.Add("Sheet1");
+                        ws.Cells[2, 2].Value = "1/15/2014";
+                        ws.Cells[3, 3].Formula = "EOMONTH(C2, 0)";
+                        ws.Cells[2, 3].Formula = "EDATE(B2, 0)";
+                        ws.Calculate();
+                        usEoMonth = Convert.ToDouble(ws.Cells[2, 3].Value);
+                        usEdate = Convert.ToDouble(ws.Cells[3, 3].Value);
 
+                    }
+                }
+                catch (Exception e)
+                {
+                    ex = e;
                 }
             });
             thread.Start();
             thread.Join();
+            if (ex != null)
+                throw ex;
             Assert.AreEqual(41654.0, usEoMonth);
             Assert.AreEqual(41670.0, usEdate);
 #if Core
@@ -3052,21 +3062,31 @@ namespace EPPlusTest
             Thread.CurrentThread.CurrentCulture = gb;
 #endif
             double gbEoMonth = 0d, gbEdate = 0d;
+            Exception ex = null;
             var thread = new Thread(delegate ()
             {
-                using (var package = new ExcelPackage())
+                try
                 {
-                    var ws = package.Workbook.Worksheets.Add("Sheet1");
-                    ws.Cells[2, 2].Value = "15/1/2014";
-                    ws.Cells[3, 3].Formula = "EOMONTH(C2, 0)";
-                    ws.Cells[2, 3].Formula = "EDATE(B2, 0)";
-                    ws.Calculate();
-                    gbEoMonth = Convert.ToDouble(ws.Cells[2, 3].Value);
-                    gbEdate = Convert.ToDouble(ws.Cells[3, 3].Value);
+                    using (var package = new ExcelPackage())
+                    {
+                        var ws = package.Workbook.Worksheets.Add("Sheet1");
+                        ws.Cells[2, 2].Value = "15/1/2014";
+                        ws.Cells[3, 3].Formula = "EOMONTH(C2, 0)";
+                        ws.Cells[2, 3].Formula = "EDATE(B2, 0)";
+                        ws.Calculate();
+                        gbEoMonth = Convert.ToDouble(ws.Cells[2, 3].Value);
+                        gbEdate = Convert.ToDouble(ws.Cells[3, 3].Value);
+                    }
+                }
+                catch (Exception e)
+                {
+                    ex = e;
                 }
             });
             thread.Start();
             thread.Join();
+            if (ex != null)
+                throw ex;
             Assert.AreEqual(41654.0, gbEoMonth);
             Assert.AreEqual(41670.0, gbEdate);
 #if Core
