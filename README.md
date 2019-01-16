@@ -1,4 +1,4 @@
-# EPPlus
+# EPPlus [![Build status](https://ci.appveyor.com/api/projects/status/aj1vi0o5co5u2lw5?svg=true)](https://ci.appveyor.com/project/VisualOn/epplus)
 
 This is a fork from [Jan Källman](https://github.com/JanKallman/EPPlus).
 
