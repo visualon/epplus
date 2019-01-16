@@ -30,7 +30,7 @@ configuration: Release
 
 before_build:
   - dotnet --version
-  - dotnet restore --verbosity m
+  - dotnet restore --verbosity m EPPlus.Core.sln
 
 build:
   verbosity: minimal
