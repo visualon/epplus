@@ -13,6 +13,9 @@ skip_commits:
    - .editorconfig
    - .gitignore
 
+environment:
+  TestTimeout: 30000
+
 image:
   - Visual Studio 2017
   - ubuntu1804
@@ -44,6 +47,12 @@ build:
 #     only:
 #       - 'EPPlusTest\bin\**\EPPlusTest.dll'
 
+test_script:
+  - ps: >-
+    dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l "trx:LogFileName=results.trx" -- MSTestV2.TestTimeout=$($env:TestTimeout)
+    $wc = New-Object 'System.Net.WebClient'
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\results.xml))
+
 for:
 -
   matrix:
@@ -53,11 +62,10 @@ for:
     publish_nuget: true
   before_build:
     - dotnet restore --verbosity m EPPlus.Core.sln
-  test_script:
-    - ps: dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l Appveyor -- MSTestV2.TestTimeout=15000
+  # test_script:
+  #   - ps: dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l Appveyor -- MSTestV2.TestTimeout=15000
 -
   matrix:
     only:
       - image: ubuntu1804
-  test_script:
-    - ps: dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l Appveyor -- MSTestV2.TestTimeout=15000
+
