@@ -48,8 +48,8 @@ build:
 #       - 'EPPlusTest\bin\**\EPPlusTest.dll'
 
 test_script:
-  - ps: dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l "trx:LogFileName=results.trx" -v n -- MSTestV2.TestTimeout=$($env:TestTimeout)
-  - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\results.xml));
+  - ps: dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l "trx;LogFileName=results.trx" -v n -- MSTestV2.TestTimeout=$($env:TestTimeout)
+  - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\results.trx));
 
 for:
 -
