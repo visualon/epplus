@@ -18,10 +18,11 @@ environment:
 
 image:
   - Visual Studio 2017
-  - ubuntu1804
+  - Ubuntu1804
 
 cache:
   - '%USERPROFILE%\.nuget\packages -> **\*.csproj, **\Directory.Build.props, **\Directory.Build.targets'
+  - '~/.nuget/packages -> **\*.csproj, **\Directory.Build.props, **\Directory.Build.targets'
 
 init:
   - git config --global core.autocrlf true
@@ -48,8 +49,7 @@ build:
 #       - 'EPPlusTest\bin\**\EPPlusTest.dll'
 
 test_script:
-  - ps: $ErrorActionPreference = 'SilentlyContinue'; dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build -l "trx" -- MSTestV2.TestTimeout=$($env:TestTimeout)
-  - ps: $wc= New-Object 'System.Net.WebClient'; Resolve-Path ./EPPlusTest/TestResults/*.trx | % { $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", $_) }
+  - ps: $ErrorActionPreference = 'SilentlyContinue'; dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build --test-adapter-path:. --logger:Appveyor -- MSTestV2.TestTimeout=$($env:TestTimeout)
 
 for:
 -
