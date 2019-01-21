@@ -39,6 +39,11 @@ build:
   publish_nuget: false
   publish_nuget_symbols: false
 
+test:
+  assemblies:
+    only:
+      - 'EPPlusTest\bin\**\EPPlusTest.dll'
+
 for:
 -
   matrix:
@@ -48,8 +53,9 @@ for:
     publish_nuget: true
   before_build:
     - dotnet restore --verbosity m EPPlus.Core.sln
-
-test:
-  assemblies:
+-
+  matrix:
     only:
-      - 'EPPlusTest\bin\**\EPPlusTest.dll'
+      - image: ubuntu
+  test_script:
+    - dotnet test EPPlusTest/EPPlusTest.Core.csproj --configuration $configuration --no-build -- MSTestV2.TestTimeout=15000
