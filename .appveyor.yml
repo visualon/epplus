@@ -49,7 +49,7 @@ build:
 #       - 'EPPlusTest\bin\**\EPPlusTest.dll'
 
 test_script:
-  - ps: $ErrorActionPreference = 'SilentlyContinue'; dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $env:configuration --no-build --test-adapter-path:. --logger:Appveyor -- MSTestV2.TestTimeout=$($env:TestTimeout)
+  - ps: $ErrorActionPreference = 'SilentlyContinue'; dotnet test EPPlusTest/EPPlusTest.Core.csproj -c $($env:CONFIGURATION) --no-build --test-adapter-path:. --logger:Appveyor -- MSTestV2.TestTimeout=$($env:TestTimeout)
 
 for:
 -
