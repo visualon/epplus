@@ -29,7 +29,7 @@ init:
 
 nuget:
   account_feed: false
-  project_feed: true
+  project_feed: false
   disable_publish_on_pr: true
 
 configuration: Release
