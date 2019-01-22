@@ -3020,6 +3020,7 @@ namespace EPPlusTest
             {
                 try
                 {
+                    Thread.CurrentThread.CurrentCulture = currentCulture;
                     using (var package = new ExcelPackage())
                     {
                         var ws = package.Workbook.Worksheets.Add("Sheet1");
@@ -3067,6 +3068,7 @@ namespace EPPlusTest
             {
                 try
                 {
+                    Thread.CurrentThread.CurrentCulture = gb;
                     using (var package = new ExcelPackage())
                     {
                         var ws = package.Workbook.Worksheets.Add("Sheet1");

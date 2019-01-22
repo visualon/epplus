@@ -173,7 +173,7 @@ namespace EPPlusTest
                 var p = pictures.First();
                 var oimg = p.Image;
 
-                var imgbyte = (byte[])Properties.Resources.ResourceManager.GetObject("BitmapImage");
+                var imgbyte = GetResource("BitmapImage.gif");
                 using (var ms = new MemoryStream(imgbyte))
                     p.Image = new Bitmap(ms);
 
