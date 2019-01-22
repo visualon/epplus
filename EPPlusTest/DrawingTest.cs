@@ -1,15 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Xml;
-using EPPlusTest.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml;
 using OfficeOpenXml.Drawing;
 using OfficeOpenXml.Drawing.Chart;
 using OfficeOpenXml.Style;
-using System.Diagnostics;
-using System.Reflection;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Xml;
 
 namespace EPPlusTest
 {
@@ -19,6 +16,13 @@ namespace EPPlusTest
     [TestClass]
     public class DrawingTest : TestBase
     {
+        private readonly Bitmap _bitmap;
+
+        public DrawingTest()
+        {
+            _bitmap = GetBitmap("Test1.jpg");
+        }
+
         [TestMethod]
         public void RunDrawingTests()
         {
@@ -68,9 +72,9 @@ namespace EPPlusTest
         public void Picture()
          {
             var ws = _pck.Workbook.Worksheets.Add("Picture");
-            var pic = ws.Drawings.AddPicture("Pic1", Resources.Test1);
+            var pic = ws.Drawings.AddPicture("Pic1", _bitmap);
 
-            pic = ws.Drawings.AddPicture("Pic2", Resources.Test1);
+            pic = ws.Drawings.AddPicture("Pic2", _bitmap);
             pic.SetPosition(150, 200);
             pic.Border.LineStyle = eLineStyle.Solid;
             pic.Border.Fill.Color = Color.DarkCyan;
@@ -78,7 +82,7 @@ namespace EPPlusTest
             pic.Fill.Color = Color.White;
             pic.Fill.Transparancy = 50;
 
-            pic = ws.Drawings.AddPicture("Pic3", Resources.Test1);
+            pic = ws.Drawings.AddPicture("Pic3", _bitmap);
             pic.SetPosition(400, 200);
             pic.SetSize(150);
 
@@ -94,7 +98,7 @@ namespace EPPlusTest
             pic.SetPosition(400, 400);
             pic.SetSize(100);
 
-            pic = ws.Drawings.AddPicture("PicPixelSized", Resources.Test1);
+            pic = ws.Drawings.AddPicture("PicPixelSized", _bitmap);
             pic.SetPosition(800, 800);
             pic.SetSize(568*2, 66*2);
             var ws2 = _pck.Workbook.Worksheets.Add("Picture2");
@@ -119,14 +123,14 @@ namespace EPPlusTest
          {
              var ws = _pck.Workbook.Worksheets.Add("DrawingPosSize");
 
-             var pic = ws.Drawings.AddPicture("Pic1", Resources.Test1);
+             var pic = ws.Drawings.AddPicture("Pic1", _bitmap);
              pic.SetPosition(1, 0, 1, 0);
 
-             pic = ws.Drawings.AddPicture("Pic2", Resources.Test1);
+             pic = ws.Drawings.AddPicture("Pic2", _bitmap);
              pic.EditAs = eEditAs.Absolute;
              pic.SetPosition(10, 5, 1, 4);
 
-             pic = ws.Drawings.AddPicture("Pic3", Resources.Test1);
+             pic = ws.Drawings.AddPicture("Pic3", _bitmap);
              pic.EditAs = eEditAs.TwoCell;
              pic.SetPosition(20, 5, 2, 4);
 
@@ -767,7 +771,7 @@ namespace EPPlusTest
             var chart1 = ws.Drawings.AddChart("Chart1", eChartType.Line);
             var chart2 = ws.Drawings.AddChart("Chart2", eChartType.Line);
             var shape1 = ws.Drawings.AddShape("Shape1", eShapeStyle.ActionButtonBackPrevious);
-            var pic1 = ws.Drawings.AddPicture("Pic1", Resources.Test1);
+            var pic1 = ws.Drawings.AddPicture("Pic1", _bitmap);
             ws.Drawings.Remove(2);
             ws.Drawings.Remove(chart2);
             ws.Drawings.Remove("Pic1");
@@ -776,7 +780,7 @@ namespace EPPlusTest
             chart1 = ws.Drawings.AddChart("Chart1", eChartType.Line);
             chart2 = ws.Drawings.AddChart("Chart2", eChartType.Line);
             shape1 = ws.Drawings.AddShape("Shape1", eShapeStyle.ActionButtonBackPrevious);
-            pic1 = ws.Drawings.AddPicture("Pic1", Resources.Test1);
+            pic1 = ws.Drawings.AddPicture("Pic1", _bitmap);
 
             ws.Drawings.Remove("chart1");
 
@@ -784,7 +788,7 @@ namespace EPPlusTest
             chart1 = ws.Drawings.AddChart("Chart1", eChartType.Line);
             chart2 = ws.Drawings.AddChart("Chart2", eChartType.Line);
             shape1 = ws.Drawings.AddShape("Shape1", eShapeStyle.ActionButtonBackPrevious);
-            pic1 = ws.Drawings.AddPicture("Pic1", Resources.Test1);
+            pic1 = ws.Drawings.AddPicture("Pic1", _bitmap);
             ws.Drawings.Clear();
         }
         //[TestMethod]
@@ -964,7 +968,7 @@ namespace EPPlusTest
             ws.Cells["A1"].Style.Font.Size = 39;
             ws.Workbook.Styles.NamedStyles[0].Style.Font.Name = "Symbol";
             ws.Workbook.Styles.NamedStyles[0].Style.Font.Size = 16;
-            var pic = ws.Drawings.AddPicture("Pic1", Resources.Test1);
+            var pic = ws.Drawings.AddPicture("Pic1", _bitmap);
             pic.SetPosition(10,12);
         }
         [TestMethod]

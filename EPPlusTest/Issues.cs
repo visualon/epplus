@@ -54,7 +54,8 @@ namespace EPPlusTest
             var dir = AppContext.BaseDirectory;
 #endif
             var file = Path.Combine(dir, "Workbooks", "Drawings.xlsx");
-            Assert.IsTrue(File.Exists(file));
+            if (!File.Exists(file))
+                Assert.Inconclusive($"Missing test file: {file}");
 
             using (var pkg = new ExcelPackage(new FileInfo(file)))
             {
@@ -106,7 +107,8 @@ namespace EPPlusTest
             var dir = AppContext.BaseDirectory;
 #endif
             var file = Path.Combine(dir, "Workbooks", "Drawings.xlsx");
-            Assert.IsTrue(File.Exists(file));
+            if (!File.Exists(file))
+                Assert.Inconclusive($"Missing test file: {file}");
 
             using (var pkg = new ExcelPackage(new FileInfo(file)))
             {
@@ -159,7 +161,8 @@ namespace EPPlusTest
             var dir = AppContext.BaseDirectory;
 #endif
             var file = Path.Combine(dir, "Workbooks", "NvPr.xlsx");
-            Assert.IsTrue(File.Exists(file));
+            if (!File.Exists(file))
+                Assert.Inconclusive($"Missing test file: {file}");
 
             using (var pkg = new ExcelPackage(new FileInfo(file)))
             {
@@ -173,9 +176,7 @@ namespace EPPlusTest
                 var p = pictures.First();
                 var oimg = p.Image;
 
-                var imgbyte = GetResource("BitmapImage.gif");
-                using (var ms = new MemoryStream(imgbyte))
-                    p.Image = new Bitmap(ms);
+                p.Image = GetBitmap("BitmapImage.gif");
 
                 Assert.AreNotEqual(oimg.RawFormat.Guid, p.Image.RawFormat.Guid);
                 Assert.AreNotEqual(p.Image.RawFormat.Guid, ImageFormat.Jpeg.Guid);
@@ -196,7 +197,8 @@ namespace EPPlusTest
             var dir = AppContext.BaseDirectory;
 #endif
             var file = Path.Combine(dir, "Workbooks", "NvPr.xlsx");
-            Assert.IsTrue(File.Exists(file));
+            if (!File.Exists(file))
+                Assert.Inconclusive($"Missing test file: {file}");
 
             using (var pkg = new ExcelPackage(new FileInfo(file)))
             {
@@ -228,7 +230,8 @@ namespace EPPlusTest
             var dir = AppContext.BaseDirectory;
 #endif
             var file = Path.Combine(dir, "Workbooks", "NvPr.xlsx");
-            Assert.IsTrue(File.Exists(file));
+            if (!File.Exists(file))
+                Assert.Inconclusive($"Missing test file: {file}");
 
             using (var pkg = new ExcelPackage(new FileInfo(file)))
             {

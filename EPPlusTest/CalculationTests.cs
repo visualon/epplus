@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
@@ -267,6 +267,7 @@ namespace EPPlusTest
         public void INTFunctionTest()
         {
             var pck = new ExcelPackage();
+            pck.Compatibility.IsWorksheets1Based = true;
             var ws = pck.Workbook.Worksheets.Add("CalcTest");
             var currentDate = DateTime.UtcNow.Date;
             ws.SetValue("A1", currentDate.ToString("MM/dd/yyyy"));
