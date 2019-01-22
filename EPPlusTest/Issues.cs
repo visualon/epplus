@@ -19,6 +19,7 @@ using System.Globalization;
 using OfficeOpenXml.Drawing;
 using OfficeOpenXml.FormulaParsing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace EPPlusTest
 {
@@ -2510,9 +2511,18 @@ namespace EPPlusTest
             var ws = pkg.Workbook.Worksheets["Hyperlink"];
             Assert.IsNotNull(ws.Cells["A1"].Hyperlink);
         }
+
+        /// <summary>
+        ///  Not working 
+        /// </summary>
         [TestMethod]
         public void Issuer246()
         {
+#if Core
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                Assert.Inconclusive("Only working on windows.");
+#endif
+
             InitBase();
             var pkg = OpenPackage("issue246.xlsx", true);
             var ws = _pck.Workbook.Worksheets.Add("DateFormat");
@@ -2528,6 +2538,7 @@ namespace EPPlusTest
             Assert.AreEqual(ws.GetValue<DateTime>(1, 1), new DateTime(2018, 12, 31));
             System.Threading.Thread.CurrentThread.CurrentCulture = pCulture;
         }
+
         [TestMethod]
         public void Issue347()
         {
