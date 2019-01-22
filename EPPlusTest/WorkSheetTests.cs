@@ -15,6 +15,7 @@ using System.Reflection;
 using OfficeOpenXml.Table;
 using System.Threading;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace EPPlusTest
 {
@@ -2251,6 +2252,10 @@ namespace EPPlusTest
 
             ws.BackgroundImage.Image = GetBitmap("Test1.jpg");
             ws = _pck.Workbook.Worksheets.Add("backimg2");
+#if Core
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return; // following wmf not supported on ubuntu 18.04
+#endif
             ws.BackgroundImage.SetFromFile(new FileInfo(Path.Combine(_clipartPath, "Vector Drawing.wmf")));
         }
         //[Ignore]
