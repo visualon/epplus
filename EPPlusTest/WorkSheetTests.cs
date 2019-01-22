@@ -455,7 +455,7 @@ namespace EPPlusTest
 
             // add autofilter
             ws.Cells["U19:X24"].AutoFilter = true;
-            ExcelPicture pic = ws.Drawings.AddPicture("Pic1", Properties.Resources.Test1);
+            ExcelPicture pic = ws.Drawings.AddPicture("Pic1", TestBase.GetBitmap("Test1.jpg"));
             pic.SetPosition(150, 140);
 
             ws.Cells["A30"].Value = "Text orientation 45";
@@ -1129,7 +1129,7 @@ namespace EPPlusTest
             ExcelHyperLink hl = new ExcelHyperLink("http://epplus.codeplex.com");
             hl.ToolTip = "Screen Tip";
 
-            ws.Drawings.AddPicture("Pic URI", Properties.Resources.Test1, hl);
+            ws.Drawings.AddPicture("Pic URI", GetBitmap("Test1.jpg"), hl);
         }
         [TestMethod]
         public void PivotTableTest()
@@ -2249,7 +2249,7 @@ namespace EPPlusTest
         {
             var ws = _pck.Workbook.Worksheets.Add("backimg");
 
-            ws.BackgroundImage.Image = Properties.Resources.Test1;
+            ws.BackgroundImage.Image = GetBitmap("Test1.jpg");
             ws = _pck.Workbook.Worksheets.Add("backimg2");
             ws.BackgroundImage.SetFromFile(new FileInfo(Path.Combine(_clipartPath, "Vector Drawing.wmf")));
         }
@@ -2260,7 +2260,7 @@ namespace EPPlusTest
 
             var ws = _pck.Workbook.Worksheets.Add("HeaderImage");
             ws.HeaderFooter.OddHeader.CenteredText = "Before ";
-            var img = ws.HeaderFooter.OddHeader.InsertPicture(Properties.Resources.Test1, PictureAlignment.Centered);
+            var img = ws.HeaderFooter.OddHeader.InsertPicture(GetBitmap("Test1.jpg"), PictureAlignment.Centered);
             img.Title = "Renamed Image";
             //img.GrayScale = true;
             //img.BiLevel = true;

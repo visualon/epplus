@@ -123,5 +123,10 @@ namespace EPPlusTest
                 }
             }
         }
+
+        public static System.Drawing.Bitmap GetBitmap(string name)
+        {
+            return new System.Drawing.Bitmap(typeof(TestBase), $"Resources.{name}");
+        }
     }
 }
