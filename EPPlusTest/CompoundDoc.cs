@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -88,13 +88,13 @@ namespace EPPlusTest
         [TestMethod]
         public void WriteReadCompundDoc()
         {
-            for(int i=1;i<50;i++)
+            for(int i=1;i<50;i+=5)
             {
                 var b=CreateFile(i);
                 ReadFile(b,i);
                 GC.Collect();
             }
-            for (int i = 5; i < 20; i++)
+            for (int i = 5; i < 20; i+=5)
             {
                 var b = CreateFile(i*50);
                 ReadFile(b, i*50);
