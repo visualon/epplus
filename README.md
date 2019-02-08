@@ -1,4 +1,4 @@
-# EPPlus [![Build status](https://ci.appveyor.com/api/projects/status/aj1vi0o5co5u2lw5?svg=true)](https://ci.appveyor.com/project/VisualOn/epplus)
+# EPPlus [![Build status](https://ci.appveyor.com/api/projects/status/aj1vi0o5co5u2lw5?svg=true)](https://ci.appveyor.com/project/VisualOn/epplus) [![](https://img.shields.io/myget/visualon/v/VisualOn.EPPlus.svg?label=MyGet&style=flat)](https://www.myget.org/gallery/visualon)
 
 This is a fork from [Jan Källman](https://github.com/JanKallman/EPPlus).
 
