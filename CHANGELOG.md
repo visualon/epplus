@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 1.0.0 - 2019-01-16
+## 1.0.0 - 2019-02-08
 ### Added
-- First release as signed fork of [Jan Källman](https://github.com/JanKallman/EPPlus) 2019-01-13.
+- First release as signed fork of [Jan Källman](https://github.com/JanKallman/EPPlus) 2019-02-03.
 - Source link support.
 - Changelog
 - AppVeyor CI
