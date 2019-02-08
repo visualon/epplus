@@ -1,0 +1,7 @@
+{
+    "renovateFork": true,
+    "extends": [
+      "config:base",
+      "schedule:daily"
+    ]
+  }
