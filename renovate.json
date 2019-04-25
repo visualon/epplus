@@ -2,6 +2,9 @@
   "includeForks": true,
   "extends": ["config:base", ":assignAndReview(viceice)", ":automergePatch"],
   "labels": ["deps"],
+  "nuget": {
+    "fileMatch": ["\\.csproj$", "\\.props$", "\\.targets$"]
+  },
   "prCreation": "not-pending",
   "semanticCommits": true,
   "timezone": "Europe/Berlin"
