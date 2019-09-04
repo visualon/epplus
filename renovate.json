@@ -7,5 +7,12 @@
   },
   "prCreation": "not-pending",
   "semanticCommits": true,
-  "timezone": "Europe/Berlin"
+  "timezone": "Europe/Berlin",
+  "packageRules": [
+    {
+      "packageNames": ["MSTest.TestAdapter", "MSTest.TestFramework"],
+      "groupName": "MSTest packages",
+      "groupSlug": "mstest"
+    }
+  ]
 }
