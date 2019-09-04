@@ -1,6 +1,7 @@
 {
   "includeForks": true,
-  "extends": ["config:base", ":assignAndReview(viceice)", ":automergePatch"],
+  "extends": ["config:base", ":assignAndReview(viceice)", ":automergePatch",
+    ":masterIssue"],
   "labels": ["deps"],
   "nuget": {
     "fileMatch": ["\\.csproj$", "\\.props$", "\\.targets$"]
@@ -8,6 +9,12 @@
   "prCreation": "not-pending",
   "semanticCommits": true,
   "timezone": "Europe/Berlin",
+  "major": {
+    "masterIssueApproval": true
+  },
+  "minor": {
+    "masterIssueApproval": true
+  },
   "packageRules": [
     {
       "packageNames": ["MSTest.TestAdapter", "MSTest.TestFramework"],
