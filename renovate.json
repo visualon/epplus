@@ -1,7 +1,6 @@
 {
   "includeForks": true,
-  "extends": ["config:base", ":assignAndReview(viceice)", ":automergePatch",
-    ":masterIssue"],
+  "extends": ["config:base", ":assignee(viceice)", ":automergePatch", ":masterIssue"],
   "labels": ["deps"],
   "nuget": {
     "fileMatch": ["\\.csproj$", "\\.props$", "\\.targets$"]
