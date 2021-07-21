@@ -5,7 +5,7 @@ on:
 
 env:
   CONFIGURATION: Release
-  # LANG: en_US.UTF-8
+  LANG: en_US.UTF-8
   DOTNET_NOLOGO: true # https://github.com/actions/setup-dotnet#environment-variables-to-use-with-dotnet
 
 concurrency:
