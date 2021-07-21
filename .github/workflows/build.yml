@@ -26,8 +26,6 @@ jobs:
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
 
       - name: restore packages
         run: dotnet restore EPPlusTest/EPPlusTest.Core.csproj
@@ -55,8 +53,6 @@ jobs:
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
 
       - name: restore packages
         run: dotnet restore EPPlus/EPPlus.MultiTarget.csproj
