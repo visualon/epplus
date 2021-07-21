@@ -6,7 +6,8 @@
         <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
         <PackageIconUrl>https://visualon.github.io/img/nuget.png</PackageIconUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
-
+        
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
