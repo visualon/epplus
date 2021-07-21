@@ -246,13 +246,16 @@ namespace EPPlusTest.FormulaParsing.IntegrationTests.BuiltInFunctions
         public void DateValueTestWithTwoDigitYear()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            // https://docs.microsoft.com/en-us/office/troubleshoot/excel/two-digit-year-numbers
+            Thread.CurrentThread.CurrentCulture.Calendar.TwoDigitYearMax = 2029;
             var pck = new ExcelPackage();
             var ws = pck.Workbook.Worksheets.Add("Calc1");
             var expectedYear = 1930;
             ws.Cells["A1"].Value = "01/01/30";
             ws.Cells["B1"].Formula = "DateValue(A1)";
             ws.Calculate();
-            Assert.AreEqual(new DateTime(expectedYear, 1, 1).ToOADate(), ws.Cells["B1"].Value);
+            Assert.AreEqual(new DateTime(expectedYear, 1, 1), DateTime.FromOADate((double)ws.Cells["B1"].Value));
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
         }
 
         [TestMethod]

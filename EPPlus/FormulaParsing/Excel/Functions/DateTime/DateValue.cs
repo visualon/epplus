@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using OfficeOpenXml.FormulaParsing.ExpressionGraph;
 
 namespace OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime
@@ -22,8 +18,7 @@ namespace OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime
 
         internal CompileResult Execute(string dateString)
         {
-            System.DateTime result;
-            System.DateTime.TryParse(dateString, out result);
+            System.DateTime.TryParse(dateString, out System.DateTime result);
             return result != System.DateTime.MinValue ?
                 CreateResult(result.ToOADate(), DataType.Date) :
                 CreateResult(ExcelErrorValue.Create(eErrorType.Value), DataType.ExcelError);
