@@ -1,0 +1,70 @@
+name: build
+
+on: 
+  push:
+
+env:
+  CONFIGURATION: Release
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        dotnet-version: [5.0.x]
+
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # renovate: tag=v2.3.4
+
+      - name: Setup .NET Core ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@53063334342b67eb3f5066a7ac9151683aa30b96 # renovate: tag=v1.8.1
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: prepare macos
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          brew install mono-libgdiplus
+
+      - name: restore packages
+        run: dotnet restore EPPlus.Core.sln
+
+      - name: build
+        run: dotnet build EPPlus.Core.sln --no-restore
+
+      - name: test
+        run: dotnet test EPPlusTest/EPPlusTest.Core.csproj --no-build
+
+  publish:
+    runs-on: windows-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # renovate: tag=v2.3.4
+
+      - name: Setup .NET Core ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@53063334342b67eb3f5066a7ac9151683aa30b96 # renovate: tag=v1.8.1
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+          source-url: https://nuget.pkg.github.com/visualon/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: restore packages
+        run: dotnet restore EPPlus/EPPlus.MultiTarget.csproj
+
+      - name: build
+        run: dotnet build EPPlus/EPPlus.MultiTarget.csproj --no-restore
+
+      - name: pack
+        run: dotnet pack EPPlus/EPPlus.MultiTarget.csproj --no-build 
+
+      - name: publish
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: dotnet nuget push EPPlus/bin/${{ env.CONFIGURATION }}/*.nupkg
