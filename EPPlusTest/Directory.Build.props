@@ -5,6 +5,8 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="3.0.3" PrivateAssets="All" />
+    </ItemGroup>
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))" >
         <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
     </ItemGroup>
 </Project>
