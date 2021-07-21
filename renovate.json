@@ -1,24 +1,15 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["visualon/renovate-config"],
   "includeForks": true,
-  "extends": ["config:base", ":assignee(viceice)", ":automergePatch", ":masterIssue"],
   "labels": ["deps"],
-  "nuget": {
-    "fileMatch": ["\\.csproj$", "\\.props$", "\\.targets$"]
-  },
   "prCreation": "not-pending",
-  "semanticCommits": true,
+  "semanticCommits": "enabled",
   "timezone": "Europe/Berlin",
-  "major": {
-    "masterIssueApproval": true
-  },
-  "minor": {
-    "masterIssueApproval": true
-  },
   "packageRules": [
     {
-      "packageNames": ["MSTest.TestAdapter", "MSTest.TestFramework"],
-      "groupName": "MSTest packages",
-      "groupSlug": "mstest"
+      "updateTypes": ["minor"],
+      "dependencyDashboardApproval": false
     }
   ]
 }
