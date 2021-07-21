@@ -237,7 +237,7 @@ Release Candidate changes
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>OpenOfficeXml.snk</AssemblyOriginatorKeyFile>
     <NeutralLanguage />
-    <PackageLicenseFile>lgpl-3.0.txt</PackageLicenseFile>
+    <PackageLicenseFile>../LICENSE</PackageLicenseFile>
   </PropertyGroup>
  
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
