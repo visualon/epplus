@@ -8,11 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Upstream changes at 2021-07-21.
-- Build for `netstandard2.1`
+- Add `netstandard2.1` build
 
 ### Changed
 - Refactored project files.
 - migrate `netcoreapp2.2` to `netcoreapp3.1`
+
+### Fixed
+- Build / test issues
 
 ## 1.0.0 - 2019-02-08
 
