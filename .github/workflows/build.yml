@@ -5,7 +5,6 @@ on:
 
 env:
   CONFIGURATION: Release
-  LANG: en_US.UTF-8
   DOTNET_NOLOGO: true # https://github.com/actions/setup-dotnet#environment-variables-to-use-with-dotnet
 
 concurrency:
@@ -38,15 +37,6 @@ jobs:
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
           brew install mono-libgdiplus
-
-          
-      - name: prepare linux
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          echo "All languages..."
-          locale -a
-          echo "Actual locale"
-          locale
 
       - name: restore packages
         run: dotnet restore EPPlus.Core.sln
