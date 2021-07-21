@@ -8,7 +8,7 @@ namespace EPPlusTest.FormulaParsing.ExpressionGraph
     [TestClass]
     public class CompileResultFactoryTests
     {
-#if (!NETSTANDARD)
+#if (!NETCOREAPP)
         [TestMethod]
         public void CalculateUsingEuropeanDates()
         {

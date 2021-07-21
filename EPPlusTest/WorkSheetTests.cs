@@ -2262,7 +2262,7 @@ namespace EPPlusTest
 
             ws.BackgroundImage.Image = GetBitmap("Test1.jpg");
             ws = _pck.Workbook.Worksheets.Add("backimg2");
-#if NETSTANDARD
+#if NETCOREAPP
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 return; // following wmf not supported on ubuntu 18.04
 #endif
@@ -3023,7 +3023,7 @@ namespace EPPlusTest
         public void DateFunctionsWorkWithDifferentCultureDateFormats_US()
         {
             var currentCulture = CultureInfo.CurrentCulture;
-#if NETSTANDARD
+#if NETCOREAPP
             var us = CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 #else
             var us = CultureInfo.CreateSpecificCulture("en-US");
@@ -3059,7 +3059,7 @@ namespace EPPlusTest
                 throw ex;
             Assert.AreEqual(41654.0, usEoMonth);
             Assert.AreEqual(41670.0, usEdate);
-#if NETSTANDARD
+#if NETCOREAPP
             CultureInfo.DefaultThreadCurrentCulture = currentCulture;
 #else
             Thread.CurrentThread.CurrentCulture = currentCulture;
@@ -3071,7 +3071,7 @@ namespace EPPlusTest
         {
             var currentCulture = CultureInfo.CurrentCulture;
 
-#if NETSTANDARD
+#if NETCOREAPP
             var gb = CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
 #else
             var gb = CultureInfo.CreateSpecificCulture("en-GB");
@@ -3106,7 +3106,7 @@ namespace EPPlusTest
                 throw ex;
             Assert.AreEqual(41654.0, gbEoMonth);
             Assert.AreEqual(41670.0, gbEdate);
-#if NETSTANDARD
+#if NETCOREAPP
             CultureInfo.DefaultThreadCurrentCulture = currentCulture;
 #else
             Thread.CurrentThread.CurrentCulture = currentCulture;

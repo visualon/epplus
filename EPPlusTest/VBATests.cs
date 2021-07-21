@@ -203,7 +203,7 @@ namespace EPPlusTest
             // This is a test for Issue 15026: VBA decompression encounters index out of range
             // on the decompression buffer.
             var workbookDir = Path.Combine(
-#if NETSTANDARD
+#if NETCOREAPP
                 AppContext.BaseDirectory
 #else
                 AppDomain.CurrentDomain.BaseDirectory

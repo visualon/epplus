@@ -90,7 +90,7 @@ namespace EPPlusTest
         [TestMethod, Ignore]
         public void Calulation4()
         {
-#if NETSTANDARD
+#if NETCOREAPP
             var dir = AppContext.BaseDirectory;
             dir = Directory.GetParent(dir).Parent.Parent.Parent.FullName;
 #else
@@ -103,7 +103,7 @@ namespace EPPlusTest
         [TestMethod, Ignore]
         public void CalulationValidationExcel()
         {
-#if NETSTANDARD
+#if NETCOREAPP
             var dir = AppContext.BaseDirectory;
             dir = Directory.GetParent(dir).Parent.Parent.Parent.FullName;
 #else
