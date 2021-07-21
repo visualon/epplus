@@ -5,5 +5,22 @@
     <DeleteDeploymentDirectoryAfterTestRunIsComplete>false</DeleteDeploymentDirectoryAfterTestRunIsComplete>
   </MSTest>
 
+  
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>json,opencover</Format>
+          <Exclude>[EPPlusTest]*</Exclude> <!-- [Assembly-Filter]Type-Filter -->
+          <Include>[EPPlus]*</Include> <!-- [Assembly-Filter]Type-Filter -->
+          <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+          <SingleHit>false</SingleHit>
+          <UseSourceLink>true</UseSourceLink>
+          <IncludeTestAssembly>false</IncludeTestAssembly>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+
 
 </RunSettings>

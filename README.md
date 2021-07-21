@@ -1,4 +1,5 @@
-# EPPlus [![build](https://github.com/visualon/epplus/actions/workflows/build.yml/badge.svg)](https://github.com/visualon/epplus/actions/workflows/build.yml) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/visualon/epplus) ![LICENSE](https://img.shields.io/github/license/visualon/epplus)
+# EPPlus [![build](https://github.com/visualon/epplus/actions/workflows/build.yml/badge.svg)](https://github.com/visualon/epplus/actions/workflows/build.yml) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/visualon/epplus) ![LICENSE](https://img.shields.io/github/license/visualon/epplus) 
+[![codecov](https://codecov.io/gh/visualon/epplus/branch/main/graph/badge.svg)](https://codecov.io/gh/visualon/epplus)
 
 This is a fork from [Jan Källman](https://github.com/JanKallman/EPPlus).
 
