@@ -7,11 +7,16 @@
         <PackageIconUrl>https://visualon.github.io/img/nuget.png</PackageIconUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-        <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35' and  '$(MSBuildRuntimeType)' == 'Core'">C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+        <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="5.0.1" />
+        <PackageReference Include="System.Security.Cryptography.Xml" Version="5.0.0" />
     </ItemGroup>
 </Project>

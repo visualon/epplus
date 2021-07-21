@@ -6,7 +6,7 @@
         <Company>VisualOn GmbH</Company>
         <Copyright>VisualOn GmbH $([System.DateTime]::Now.ToString("yyyy"))</Copyright>
         <PackageId>VisualOn.EPPlus</PackageId>
-        <PackageProjectUrl>https://github.com/VisualOn/EPPlus</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/visualon/epplus</PackageProjectUrl>
         <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release'">true</GenerateDocumentationFile>
         <PackageLicenseUrl />
         <DocumentationFile />
