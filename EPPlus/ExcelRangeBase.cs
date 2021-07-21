@@ -899,44 +899,31 @@ namespace OfficeOpenXml
                     if (fnt.Italic) fs |= FontStyle.Italic;
                     if (fnt.Strike) fs |= FontStyle.Strikeout;
                     f = new Font(fnt.Name, fnt.Size, fs);
-                    //f = new wm.Typeface(new System.Windows.Media.FontFamily(fnt.Name), fnt.Italic ? System.Windows.FontStyles.Italic : System.Windows.FontStyles.Normal, fnt.Bold ? System.Windows.FontWeights.Bold : System.Windows.FontWeights.Normal, System.Windows.FontStretches.Normal);
 
                     fontCache.Add(fntID, f);
                 }
                 var ind = styles.CellXfs[cell.StyleID].Indent;
                 var textForWidth = cell.TextForWidth;
                 var t = textForWidth + (ind > 0 && !string.IsNullOrEmpty(textForWidth) ? new string('_', ind) : "");
+                if (t.Length > 32000) t = t.Substring(0, 32000); //Issue
                 var size = g.MeasureString(t, f, 10000, StringFormat.GenericDefault);
-
-                //var ft = new wm.FormattedText(t, CultureInfo.CurrentCulture, w.FlowDirection.LeftToRight,
-                //    f,
-                //    styles.Fonts[fntID].Size, System.Windows.Media.Brushes.Black);
-                //var wd = ft.WidthIncludingTrailingWhitespace;
-
-
-                //var wi = ft.WidthIncludingTrailingWhitespace / (72 / 96D);  //Typounit=72 DPI, WPF=96DPI
-                //var he = ft.Height / (72 / 96D);
 
                 double width;
                 double r = styles.CellXfs[cell.StyleID].TextRotation;
                 if (r <= 0)
                 {
-                    //width = (wi + 15) / normalSize;
                     width = (size.Width + 5) / normalSize;
                 }
                 else
                 {
                     r = (r <= 90 ? r : r - 90);
                     width = (((size.Width - size.Height) * Math.Abs(System.Math.Cos(System.Math.PI * r / 180.0)) + size.Height) + 5) / normalSize;
-                    //width = (((wi - he) * Math.Abs(Math.Cos(Math.PI * r / 180.0)) + he) + 15) / normalSize;
-                    //width= (((size.Width-size.Height) * Math.Abs(Math.Cos(Math.PI * r / 180.0)) + size.Height) +15) / normalSize;
                 }
 
                 foreach (var a in afAddr)
                 {
                     if (a.Collide(cell) != eAddressCollition.No)
                     {
-                        //width += 2.8;
                         width += 2.25;
                         break;
                     }
@@ -1109,6 +1096,10 @@ namespace OfficeOpenXml
             else if(nf.SpecialDateFormat == ExcelNumberFormatXml.ExcelFormatTranslator.eSystemDateFormat.SystemLongTime)
             {
                 return d.ToLongTimeString();
+            }
+            else if (nf.SpecialDateFormat == ExcelNumberFormatXml.ExcelFormatTranslator.eSystemDateFormat.SystemShortDate)
+            {
+                return d.ToShortDateString();
             }
             if (format == "d" || format == "D")
             {
@@ -2677,23 +2668,44 @@ namespace OfficeOpenXml
                     Destination._worksheet.MergedCells.Add(m, true);
                 }
             }
+
+            //Check that the range is not larger than the dimensions of the worksheet. 
+            //If so set the copied range to the worksheet dimensions to avoid copying empty cells.
+            ExcelAddressBase range;
+
+            if (Worksheet.Dimension == null)
+            {
+                range = this;
+            }
+            else
+            {
+                var collideStatus = Collide(Worksheet.Dimension);
+                if (collideStatus != eAddressCollition.Equal || collideStatus != eAddressCollition.Inside)
+                {
+                    range = Worksheet.Dimension;
+                }
+                else
+                {
+                    range = this;
+                }
+            }
+
             if (_fromCol == 1 && _toCol == ExcelPackage.MaxColumns)
             {
-                for (int r = 0; r < this.Rows; r++)
+                for (int r = 0; r < range.Rows; r++)
                 {
                     var destinationRow = Destination.Worksheet.Row(Destination.Start.Row + r);
-                    destinationRow.OutlineLevel = this.Worksheet.Row(_fromRow + r).OutlineLevel;
+                    destinationRow.OutlineLevel = Worksheet.Row(range._fromRow + r).OutlineLevel;
                 }
             }
             if (_fromRow == 1 && _toRow == ExcelPackage.MaxRows)
             {
-                for (int c = 0; c < this.Columns; c++)
+                for (int c = 0; c < range.Columns; c++)
                 {
                     var destinationCol = Destination.Worksheet.Column(Destination.Start.Column + c);
-                    destinationCol.OutlineLevel = this.Worksheet.Column(_fromCol + c).OutlineLevel;
+                    destinationCol.OutlineLevel = Worksheet.Column(range._fromCol + c).OutlineLevel;
                 }
             }
-
         }
 
         /// <summary>

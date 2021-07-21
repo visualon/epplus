@@ -2621,5 +2621,44 @@ namespace EPPlusTest
                 workbook.Names.Add("Q0", cells);
             }
         }
+        [TestMethod]
+        public void Issue333()
+        {
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("TextBug");
+                ws.Cells["A1"].Value = new DateTime(2019, 3, 7);
+                ws.Cells["A1"].Style.Numberformat.Format = "mm-dd-yy";
+
+                Assert.AreEqual("2019-03-07", ws.Cells["A1"].Text);
+            }
+        }
+        [TestMethod]
+        public void Issue445()
+        {
+            ExcelPackage p = new ExcelPackage();
+            ExcelWorksheet ws = p.Workbook.Worksheets.Add("AutoFit"); //<-- This line takes forever. The process hangs.
+            ws.Cells[1, 1].Value = new string('a', 50000);
+            ws.Cells[1, 1].AutoFitColumns();
+        }
+        [TestMethod]
+        public void Issue460()
+        {
+            var p = OpenTemplatePackage("Issue460.xlsx");
+            var ws = p.Workbook.Worksheets[0];
+            var newWs=p.Workbook.Worksheets.Add("NewSheet");
+            ws.Cells.Copy(newWs.Cells);
+            SaveWorksheet("Issue460_saved.xlsx");
+        }
+        [TestMethod]
+        public void Issue476()
+        {
+            var p = OpenTemplatePackage("Issue345.xlsx");
+            var ws = p.Workbook.Worksheets[0];
+            int[] sortColumns = new int[1];
+            sortColumns[0] = 0;
+            ws.Cells["A2:A64515"].Sort(sortColumns);
+            SaveWorksheet("Issue345_saved.xlsx");
+        }
     }
 }
