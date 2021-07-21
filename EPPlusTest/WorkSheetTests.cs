@@ -181,8 +181,13 @@ namespace EPPlusTest
                 Assert.AreEqual(ws.Cells["T20"].GetValue<string>(), 0.39618055555555554d.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(ws.Cells["T20"].GetValue<int>(), 0);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<int?>(), 0);
+#if NETCOREAPP3_1_OR_GREATER
                 Assert.AreEqual(ws.Cells["T20"].GetValue<double>(), 0.39618055555555554d);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<double?>(), 0.39618055555555554d);
+#else
+                Assert.AreEqual(ws.Cells["T20"].GetValue<double>(), 0.396180555555556d);
+                Assert.AreEqual(ws.Cells["T20"].GetValue<double?>(), 0.396180555555556d);
+#endif
                 Assert.AreEqual(ws.Cells["T20"].GetValue<decimal>(), 0.396180555555556m);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<decimal?>(), 0.396180555555556m);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<bool>(), true);
@@ -196,8 +201,13 @@ namespace EPPlusTest
                 Assert.AreEqual(ws.Cells["T24"].GetValue<string>(), 1.3961805555555555d.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(ws.Cells["T24"].GetValue<int>(), 1);
                 Assert.AreEqual(ws.Cells["T24"].GetValue<int?>(), 1);
+#if NETCOREAPP3_1_OR_GREATER
                 Assert.AreEqual(ws.Cells["T24"].GetValue<double>(), 1.3961805555555555d);
                 Assert.AreEqual(ws.Cells["T24"].GetValue<double?>(), 1.3961805555555555d);
+#else
+                Assert.AreEqual(ws.Cells["T24"].GetValue<double>(), 1.39618055555556d);
+                Assert.AreEqual(ws.Cells["T24"].GetValue<double?>(), 1.39618055555556d);
+#endif
                 Assert.AreEqual(ws.Cells["T24"].GetValue<decimal>(), 1.39618055555556m);
                 Assert.AreEqual(ws.Cells["T24"].GetValue<decimal?>(), 1.39618055555556m);
                 Assert.AreEqual(ws.Cells["T24"].GetValue<bool>(), true);
@@ -3007,7 +3017,7 @@ namespace EPPlusTest
             Assert.AreEqual("Testing comment 2", ws1.Cells[3, 8].Comment.Text);
             Assert.AreEqual("test2", ws1.Cells[3, 8].Comment.Author);
         }
-        #endregion
+#endregion
 
         [TestMethod]
         public void DateFunctionsWorkWithDifferentCultureDateFormats_US()
