@@ -2519,7 +2519,7 @@ namespace EPPlusTest
         public void Issuer246()
         {
 #if Core
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 Assert.Inconclusive("Only working on windows.");
 #endif
 

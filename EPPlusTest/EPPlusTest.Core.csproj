@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net46</TargetFrameworks>
     <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">netcoreapp3.1</TargetFrameworks>
     <RootNamespace>EPPlusTest</RootNamespace>
     <AssemblyName>EPPlusTest</AssemblyName>
