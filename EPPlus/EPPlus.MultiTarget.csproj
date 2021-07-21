@@ -237,7 +237,6 @@ Release Candidate changes
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>OpenOfficeXml.snk</AssemblyOriginatorKeyFile>
     <NeutralLanguage />
-    <PackageLicenseFile>lgpl-3.0.txt</PackageLicenseFile>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
@@ -294,9 +293,6 @@ Release Candidate changes
   </ItemGroup>
   <ItemGroup>
     <None Update="readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

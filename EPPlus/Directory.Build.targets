@@ -8,7 +8,6 @@
         <PackageId>VisualOn.EPPlus</PackageId>
         <PackageProjectUrl>https://github.com/visualon/epplus</PackageProjectUrl>
         <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release'">true</GenerateDocumentationFile>
-        <PackageLicenseUrl />
         <DocumentationFile />
         <PackageReleaseNotes />
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
