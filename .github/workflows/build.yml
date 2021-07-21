@@ -38,6 +38,13 @@ jobs:
         run: |
           brew install mono-libgdiplus
 
+      - uses: actions/cache@v2.1.6
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: restore packages
         run: dotnet restore EPPlusTest/EPPlusTest.Core.csproj
 
@@ -65,6 +72,13 @@ jobs:
           source-url: https://nuget.pkg.github.com/visualon/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - uses: actions/cache@v2.1.6
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: restore packages
         run: dotnet restore EPPlus/EPPlus.MultiTarget.csproj
