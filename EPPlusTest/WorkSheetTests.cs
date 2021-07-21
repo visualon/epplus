@@ -180,11 +180,11 @@ namespace EPPlusTest
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
                     Assert.AreEqual(ws.Cells["T20"].GetValue<string>(), 0.396180555555556d.ToString(CultureInfo.CurrentCulture));
+                    Assert.AreEqual(ws.Cells["T20"].GetValue<double>(), 0.396180555555556d);
+                    Assert.AreEqual(ws.Cells["T20"].GetValue<double?>(), 0.396180555555556d);
                 }
                 Assert.AreEqual(ws.Cells["T20"].GetValue<int>(), 0);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<int?>(), 0);
-                Assert.AreEqual(ws.Cells["T20"].GetValue<double>(), 0.396180555555556d);
-                Assert.AreEqual(ws.Cells["T20"].GetValue<double?>(), 0.396180555555556d);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<decimal>(), 0.396180555555556m);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<decimal?>(), 0.396180555555556m);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<bool>(), true);
