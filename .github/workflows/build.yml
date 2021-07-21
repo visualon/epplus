@@ -18,20 +18,9 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        dotnet-version: [5.0.x]
 
     steps:
       - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # renovate: tag=v2.3.4
-
-      - name: Setup .NET Core 3.1.x
-        uses: actions/setup-dotnet@53063334342b67eb3f5066a7ac9151683aa30b96 # renovate: tag=v1.8.1
-        with:
-          dotnet-version: 3.1.x
-
-      - name: Setup .NET Core ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@53063334342b67eb3f5066a7ac9151683aa30b96 # renovate: tag=v1.8.1
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: prepare macos
         if: ${{ matrix.os == 'macos-latest' }}
@@ -67,14 +56,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET Core 5.0.x
-        uses: actions/setup-dotnet@53063334342b67eb3f5066a7ac9151683aa30b96 # renovate: tag=v1.8.1
-        with:
-          dotnet-version: 5.0.x
-          source-url: https://nuget.pkg.github.com/visualon/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
       - uses: actions/cache@c64c572235d810460d0d6876e9c705ad5002b353 # renovate: tag=v2.1.6
         with:
           path: ~/.nuget/packages
@@ -91,6 +72,10 @@ jobs:
       - name: pack
         run: dotnet pack EPPlus/EPPlus.MultiTarget.csproj --no-build
 
+      - name: github packages login
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: dotnet nuget add source --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+
       - name: publish
         if: startsWith(github.ref, 'refs/tags/v')
-        run: dotnet nuget push EPPlus/bin/${{ env.CONFIGURATION }}/*.nupkg
+        run: dotnet nuget push EPPlus/bin/${{ env.CONFIGURATION }}/*.nupkg --source "github"
