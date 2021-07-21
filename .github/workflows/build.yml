@@ -39,10 +39,10 @@ jobs:
           brew install mono-libgdiplus
 
       - name: restore packages
-        run: dotnet restore EPPlus.Core.sln
+        run: dotnet restore EPPlusTest/EPPlusTest.Core.csproj
 
       - name: build
-        run: dotnet build EPPlus.Core.sln --no-restore
+        run: dotnet build EPPlusTest/EPPlusTest.Core.csproj --no-restore
 
       - name: test
         run: dotnet test EPPlusTest/EPPlusTest.Core.csproj --no-build
