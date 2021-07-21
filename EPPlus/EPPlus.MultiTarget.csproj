@@ -237,7 +237,7 @@ Release Candidate changes
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>OpenOfficeXml.snk</AssemblyOriginatorKeyFile>
     <NeutralLanguage />
-    <PackageLicenseFile>../LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>lgpl-3.0.txt</PackageLicenseFile>
   </PropertyGroup>
  
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
@@ -312,9 +312,8 @@ Release Candidate changes
     <None Update="readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lgpl-3.0.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
+    <None Include="..\LICENSE" Pack="true" PackagePath="$(PackageLicenseFile)">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>
