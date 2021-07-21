@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Refactored project files.
+- migrate `netcoreapp2.2` to `netcoreapp3.1`
 
 ## 1.0.0 - 2019-02-08
 

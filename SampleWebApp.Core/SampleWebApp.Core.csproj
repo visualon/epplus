@@ -7,9 +7,6 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EPPlus\EPPlus.MultiTarget.csproj" />
   </ItemGroup>
 </Project>
