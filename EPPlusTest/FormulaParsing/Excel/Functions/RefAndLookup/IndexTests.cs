@@ -6,6 +6,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 using OfficeOpenXml.FormulaParsing.Exceptions;
+using Index = OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup.Index;
 
 namespace EPPlusTest.FormulaParsing.Excel.Functions.RefAndLookup
 {
