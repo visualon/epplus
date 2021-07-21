@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net46</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
     <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">netcoreapp3.1</TargetFrameworks>
     <RootNamespace>EPPlusTest</RootNamespace>
     <AssemblyName>EPPlusTest</AssemblyName>
@@ -14,10 +14,6 @@
     <IsPackable>false</IsPackable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-
-    <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
-        <DefineConstants>$(DefineConstants);Core</DefineConstants>
-    </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\BitmapImage.gif" />

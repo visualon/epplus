@@ -49,7 +49,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue256_Row()
         {
-#if !Core
+#if !NETSTANDARD
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -102,7 +102,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue256_Col()
         {
-#if !Core
+#if !NETSTANDARD
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -156,7 +156,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue248()
         {
-#if !Core
+#if !NETSTANDARD
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -192,7 +192,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue249()
         {
-#if !Core
+#if !NETSTANDARD
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -225,7 +225,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue250()
         {
-#if !Core
+#if !NETSTANDARD
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -491,7 +491,7 @@ namespace EPPlusTest
             var dest = ws.Cells[1, column + columns, ws.Dimension.End.Row, ws.Dimension.End.Column + columns];
             source.Copy(dest);
         }
-#if !Core
+#if !NETSTANDARD
         [TestMethod]
         public void Issue15123()
         {
@@ -1366,7 +1366,7 @@ namespace EPPlusTest
                 p.SaveAs(new FileInfo(path2));
 
                 // files are identical?
-#if (Core)
+#if (NETSTANDARD)
                 var md5 = System.Security.Cryptography.MD5.Create();
 #else
                 var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
@@ -2518,7 +2518,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issuer246()
         {
-#if Core
+#if NETSTANDARD
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 Assert.Inconclusive("Only working on windows.");
 #endif

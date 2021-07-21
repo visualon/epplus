@@ -11,6 +11,7 @@ using EPPlusTest.FormulaParsing.TestHelpers;
 using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing.ExpressionGraph;
 using OfficeOpenXml.FormulaParsing.Excel.Functions;
+using OfficeOpenXml.FormulaParsing.Logging;
 
 namespace EPPlusTest.Excel.Functions
 {
@@ -575,6 +576,7 @@ namespace EPPlusTest.Excel.Functions
         {
             using (var package = new ExcelPackage())
             {
+                package.Workbook.FormulaParser.Configure(x => x.AttachLogger(LoggerFactory.CreateTextFileLogger(new FileInfo(@"c:\Temp\log1.txt"))));
                 var ws = package.Workbook.Worksheets.Add("test");
                 ws.Cells["A1"].Formula = "NETWORKDAYS.INTL(DATE(2016,1,1), DATE(2016,1,20), \"0000011\", DATE(2016,1,4))";
                 ws.Calculate();

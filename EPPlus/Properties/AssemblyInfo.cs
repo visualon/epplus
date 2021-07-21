@@ -51,7 +51,7 @@ using System.Security;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-#if (!Core)
+#if (!NETSTANDARD)
     //[assembly: AssemblyTitle("EPPlus")]
     //[assembly: AssemblyDescription("Allows Excel files(xlsx;xlsm) to be created on the server. See epplus.codeplex.com")]
     //[assembly: AssemblyConfiguration("")]

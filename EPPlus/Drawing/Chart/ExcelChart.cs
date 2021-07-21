@@ -489,7 +489,7 @@ namespace OfficeOpenXml.Drawing.Chart
 
                StreamWriter streamChart = new StreamWriter(Part.GetStream(FileMode.Create, FileAccess.Write));
                ChartXml.Save(streamChart);
-#if !Core
+#if !NETSTANDARD
                 streamChart.Close();
 #endif
                package.Flush();

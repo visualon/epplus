@@ -100,7 +100,7 @@ namespace OfficeOpenXml.VBA
                 uint endel2 = br.ReadUInt32();  //0
                 ushort rgchProjectNameBuffer = br.ReadUInt16();
                 ushort rgchTimestampBuffer = br.ReadUInt16();
-#if Core
+#if NETSTANDARD
                 Verifier = new EnvelopedCms();
 #else
                 Verifier = new SignedCms();
@@ -236,7 +236,7 @@ namespace OfficeOpenXml.VBA
                 }
                 finally
                 {
-                    #if Core
+                    #if NETSTANDARD
                         store.Dispose();
                     #endif
                     store.Close();
@@ -314,7 +314,7 @@ namespace OfficeOpenXml.VBA
 
             ContentInfo contentInfo = new ContentInfo(((MemoryStream)bw.BaseStream).ToArray());
             contentInfo.ContentType.Value = "1.3.6.1.4.1.311.2.1.4";
-#if (Core)
+#if (NETSTANDARD)
             Verifier = new EnvelopedCms(contentInfo);
             var r = new CmsRecipient(Certificate);            
             Verifier.Encrypt(r);
@@ -389,7 +389,7 @@ namespace OfficeOpenXml.VBA
         /// <summary>
         /// The verifier
         /// </summary>
-#if Core
+#if NETSTANDARD
         public EnvelopedCms Verifier { get; internal set; }
 #else
         public SignedCms Verifier { get; internal set; }

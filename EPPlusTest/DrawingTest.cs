@@ -109,7 +109,7 @@ namespace EPPlusTest
             }
             else
             {
-#if (!Core)
+#if (!NETSTANDARD)
                 TestContext.WriteLine("AG00021_.GIF does not exists. Skipping Pic7.");
 #endif
             }
@@ -808,7 +808,7 @@ namespace EPPlusTest
                 {
                     if (d is ExcelChart)
                     {
-#if (!Core)
+#if (!NETSTANDARD)
                         TestContext.WriteLine(((ExcelChart)d).ChartType.ToString());
 #endif
                     }
@@ -902,7 +902,7 @@ namespace EPPlusTest
         [TestMethod]
         public void AllDrawingsInsideMarkupCompatibility()
         {
-#if (Core)
+#if (NETSTANDARD)
             string workbooksDir = Path.Combine(AppContext.BaseDirectory, @"..\..\workbooks");
 #else
             string workbooksDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\workbooks");

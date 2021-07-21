@@ -1140,7 +1140,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
             return AddEntry(entryName, content, System.Text.Encoding.UTF8);
 #else
             return AddEntry(entryName, content,
-#if Core
+#if NETSTANDARD
                 System.Text.Encoding.GetEncoding("UTF-8")
 #else
                 System.Text.Encoding.Default
@@ -1671,7 +1671,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
             return UpdateEntry(entryName, content, System.Text.Encoding.UTF8);
 #else
             return UpdateEntry(entryName, content,
-#if Core
+#if NETSTANDARD
                 System.Text.Encoding.GetEncoding("UTF-8")
 #else
                 System.Text.Encoding.Default

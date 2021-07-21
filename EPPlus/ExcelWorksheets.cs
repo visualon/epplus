@@ -1009,7 +1009,7 @@ namespace OfficeOpenXml
 			_worksheets = worksheets;
 		}
 
-#if Core
+#if NETSTANDARD
         /// <summary>
         /// Returns the worksheet at the specified position. 
         /// </summary>

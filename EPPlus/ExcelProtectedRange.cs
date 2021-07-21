@@ -108,7 +108,7 @@ namespace OfficeOpenXml
             SpinCount = SpinCount < 100000 ? 100000 : SpinCount;
 
             //Combine salt and password and calculate the initial hash
-#if Core 
+#if NETSTANDARD 
             var hp = SHA512.Create();
 #else
             var hp=new SHA512CryptoServiceProvider();

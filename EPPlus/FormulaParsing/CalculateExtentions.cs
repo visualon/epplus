@@ -161,6 +161,10 @@ namespace OfficeOpenXml
                 }
                 catch(Exception e)
                 {
+                    if (debug)
+                    {
+                        parser.Logger.Log(e.ToString());
+                    }
                     var error = ExcelErrorValue.Parse(ExcelErrorValue.Values.Value);
                     SetValue(wb, item, error);
                 }

@@ -663,7 +663,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
             {
                 if (zip64 == Zip64Option.Never)
                 {
-#if NETCF || Core
+#if NETCF || NETSTANDARD
                     throw new ZipException("The archive requires a ZIP64 Central Directory. Consider enabling ZIP64 extensions.");
 #else
                     System.Diagnostics.StackFrame sf = new System.Diagnostics.StackFrame(1);

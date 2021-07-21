@@ -2450,7 +2450,7 @@ namespace OfficeOpenXml
         {
             if (string.IsNullOrEmpty(Author))
             {
-#if Core
+#if NETSTANDARD
                 Author = System.Security.Claims.ClaimsPrincipal.Current.Identity.Name;
 #else
                 Author = Thread.CurrentPrincipal.Identity.Name;

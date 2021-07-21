@@ -216,7 +216,7 @@ namespace EPPlusTest.FormulaParsing.IntegrationTests.BuiltInFunctions
             ws.Calculate();
             Assert.AreEqual(12, ws.Cells["B1"].Value);
         }
-#if (!Core)
+#if (!NETSTANDARD)
         [TestMethod]
         public void DateValueTest1()
         {

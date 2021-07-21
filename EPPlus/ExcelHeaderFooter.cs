@@ -127,7 +127,7 @@ namespace OfficeOpenXml
             string id = ValidateImage(Alignment);
 
             //Add the image
-#if (Core)
+#if (NETSTANDARD)
             var img=ImageCompat.GetImageAsByteArray(Picture);
 #else
             ImageConverter ic = new ImageConverter();
@@ -163,7 +163,7 @@ namespace OfficeOpenXml
 
             string contentType = ExcelPicture.GetContentType(PictureFile.Extension);
             var uriPic = XmlHelper.GetNewUri(_ws._package.Package, "/xl/media/" + PictureFile.Name.Substring(0, PictureFile.Name.Length-PictureFile.Extension.Length) + "{0}" + PictureFile.Extension);
-#if (Core)
+#if (NETSTANDARD)
             var imgBytes=ImageCompat.GetImageAsByteArray(Picture);
 #else
             var ic = new ImageConverter();

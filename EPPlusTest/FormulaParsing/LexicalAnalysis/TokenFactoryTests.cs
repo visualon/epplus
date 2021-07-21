@@ -95,7 +95,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void ShouldCreateIntegerAsIntegerToken()
         {
             var input = "23";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
 
             Assert.AreEqual("23", token.Value);
             Assert.AreEqual(TokenType.Integer, token.TokenType);
@@ -105,7 +105,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void ShouldCreateBooleanAsBooleanToken()
         {
             var input = "true";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
 
             Assert.AreEqual("true", token.Value);
             Assert.AreEqual(TokenType.Boolean, token.TokenType);
@@ -115,7 +115,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void ShouldCreateDecimalAsDecimalToken()
         {
             var input = "23.3";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
 
             Assert.AreEqual("23.3", token.Value);
             Assert.AreEqual(TokenType.Decimal, token.TokenType);
@@ -125,7 +125,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void CreateShouldReadFunctionsFromFuncRepository()
         {
             var input = "Text";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
             Assert.AreEqual(TokenType.Function, token.TokenType);
             Assert.AreEqual("Text", token.Value);
         }
@@ -134,7 +134,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void CreateShouldCreateExcelAddressAsExcelAddressToken()
         {
             var input = "A1";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
             Assert.AreEqual(TokenType.ExcelAddress, token.TokenType);
             Assert.AreEqual("A1", token.Value);
         }
@@ -143,7 +143,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void CreateShouldCreateExcelRangeAsExcelAddressToken()
         {
             var input = "A1:B15";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
             Assert.AreEqual(TokenType.ExcelAddress, token.TokenType);
             Assert.AreEqual("A1:B15", token.Value);
         }
@@ -152,7 +152,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
         public void CreateShouldCreateExcelRangeOnOtherSheetAsExcelAddressToken()
         {
             var input = "ws!A1:B15";
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
             Assert.AreEqual(TokenType.ExcelAddress, token.TokenType);
             Assert.AreEqual("WS!A1:B15", token.Value);
         }
@@ -163,7 +163,7 @@ namespace EPPlusTest.FormulaParsing.LexicalAnalysis
             var input = "NamedValue";
             A.CallTo(() => _nameValueProvider.IsNamedValue("NamedValue","")).Returns(true);
             A.CallTo(() => _nameValueProvider.IsNamedValue("NamedValue", null)).Returns(true);
-            var token = _tokenFactory.Create(Enumerable.Empty<Token>(), input);
+            var token = _tokenFactory.Create(Array.Empty<Token>(), input);
             Assert.AreEqual(TokenType.NameValue, token.TokenType);
             Assert.AreEqual("NamedValue", token.Value);
         }
