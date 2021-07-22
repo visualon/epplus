@@ -35,7 +35,7 @@ jobs:
 
       - name: test
         run: dotnet test EPPlusTest/EPPlusTest.Core.csproj --no-build --collect:"XPlat Code Coverage" --settings EPPlusTest.runsettings
-        
+
       - name: Codecov
         uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052 # renovate: tag=v2.0.1
         if: always()
@@ -62,15 +62,23 @@ jobs:
 
       - name: pack
         run: dotnet pack EPPlus/EPPlus.MultiTarget.csproj --no-build
-      
+
       - name: publish to github
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          dotnet nuget push *.nupkg -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --k ${{ secrets.GITHUB_TOKEN }} -skip-duplicate
+          dotnet nuget push *.nupkg \
+            -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
+            -k ${{ secrets.GITHUB_TOKEN }} \
+            --skip-duplicate
         working-directory: EPPlus/bin/${{ env.CONFIGURATION }}
-      
+        shell: bash
+
       - name: publish to nuget
         if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')
         run: |
-          dotnet nuget push *.nupkg -s nuget.org -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+          dotnet nuget push *.nupkg \
+            -s nuget.org \
+            -k ${{ secrets.NUGET_API_KEY }} \
+            --skip-duplicate
         working-directory: EPPlus/bin/${{ env.CONFIGURATION }}
+        shell: bash
