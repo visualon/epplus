@@ -69,4 +69,5 @@ jobs:
 
       - name: publish
         if: startsWith(github.ref, 'refs/tags/v')
-        run: dotnet nuget push EPPlus/bin/${{ env.CONFIGURATION }}/*.nupkg --source "github"
+        run: dotnet nuget push *.nupkg --source github
+        working-directory: EPPlus/bin/${{ env.CONFIGURATION }}
