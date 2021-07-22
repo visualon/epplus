@@ -1,0 +1,28 @@
+# EditorConfig is awesome:http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Don't use tabs for indentation.
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 160
+end_of_line = lf
+
+# Markdown files
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+
+[{*.{json,yml,yaml,g4},.{babel,husky,prettier}rc}]
+indent_size = 2
+
+[*.{cmd,bat}]
+end_of_line = crlf
+
+[*.cs]
+indent_size = 4
