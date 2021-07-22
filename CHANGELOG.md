@@ -6,13 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.1.0] - 2021-07-22
+
 ### Added
-- Upstream changes at 2021-07-21.
+- Fetch Upstream changes at 2021-07-21.
 - Add `netstandard2.1` build
+- Publish via CI
 
 ### Changed
 - Refactored project files.
-- migrate `netcoreapp2.2` to `netcoreapp3.1`
+- Migrated `netcoreapp2.2` to `netcoreapp3.1`
+- Moved to GitHub Actions
 
 ### Fixed
 - Build / test issues
@@ -29,4 +34,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored project files.
 
 
-[Unreleased]: https://github.com/visualon/EPPlus/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/visualon/EPPlus/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/visualon/EPPlus/compare/v1.0.0...v1.1.0
