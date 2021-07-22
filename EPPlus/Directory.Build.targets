@@ -9,7 +9,7 @@
         <PackageProjectUrl>https://github.com/visualon/epplus</PackageProjectUrl>
         <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release'">true</GenerateDocumentationFile>
         <DocumentationFile />
-        <PackageReleaseNotes />
+        <PackageReleaseNotes>See [CHANGELOG](https://github.com/visualon/epplus/blob/main/CHANGELOG.md) for changes</PackageReleaseNotes>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     </PropertyGroup>
 
