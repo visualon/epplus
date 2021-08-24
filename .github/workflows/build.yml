@@ -37,7 +37,7 @@ jobs:
         run: dotnet test EPPlusTest/EPPlusTest.Core.csproj --no-build --collect:"XPlat Code Coverage" --settings EPPlusTest.runsettings
 
       - name: Codecov
-        uses: codecov/codecov-action@51d810878be5422784e86451c0e7c14e5860ec47 # renovate: tag=v2.0.2
+        uses: codecov/codecov-action@5a8bb4701eca7ba3673f21664b887f652c58d0a3 # renovate: tag=v2.0.3
         if: always()
 
   publish:
