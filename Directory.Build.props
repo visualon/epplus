@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
 
         <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
         <PackageIconUrl>https://visualon.github.io/img/nuget.png</PackageIconUrl>
