@@ -4,12 +4,14 @@ on:
   push:
 
 env:
-  CONFIGURATION: Release
   DOTNET_NOLOGO: true # https://github.com/actions/setup-dotnet#environment-variables-to-use-with-dotnet
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -33,64 +35,16 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
 
       - name: restore packages
-        run: dotnet restore EPPlusTest
+        run: dotnet restore
 
       - name: build
-        run: dotnet build EPPlusTest --no-restore
+        run: dotnet build --no-restore
 
       - name: test
-        run: dotnet test EPPlusTest --no-build
+        run: dotnet test --no-build
 
       - name: Codecov
         uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # v3.1.1
         if: always()
         with:
           files: '*.cobertura.xml'
-
-  publish:
-    runs-on: windows-latest
-    needs: test
-
-    steps:
-      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
-        with:
-          dotnet-version: 3.1.x
-
-      - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
-
-      - name: restore packages
-        run: dotnet restore EPPlus
-
-      - name: build
-        run: dotnet build EPPlus --no-restore
-
-      - name: pack
-        run: dotnet pack EPPlus --no-build
-
-      - name: publish to github
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          dotnet nuget push *.nupkg \
-            -s https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
-            -k ${{ secrets.GITHUB_TOKEN }} \
-            --skip-duplicate
-        working-directory: EPPlus/bin/${{ env.CONFIGURATION }}
-        shell: bash
-
-      - name: publish to nuget
-        if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')
-        run: |
-          dotnet nuget push *.nupkg \
-            -s nuget.org \
-            -k ${{ secrets.NUGET_API_KEY }} \
-            --skip-duplicate
-        working-directory: EPPlus/bin/${{ env.CONFIGURATION }}
-        shell: bash
