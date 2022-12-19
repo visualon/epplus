@@ -181,7 +181,7 @@ namespace EPPlusTest
                 Assert.AreEqual(ws.Cells["T20"].GetValue<string>(), 0.39618055555555554d.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(ws.Cells["T20"].GetValue<int>(), 0);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<int?>(), 0);
-#if NETCOREAPP3_1_OR_GREATER
+#if !NETFRAMEWORK
                 Assert.AreEqual(ws.Cells["T20"].GetValue<double>(), 0.39618055555555554d);
                 Assert.AreEqual(ws.Cells["T20"].GetValue<double?>(), 0.39618055555555554d);
 #else
@@ -201,7 +201,7 @@ namespace EPPlusTest
                 Assert.AreEqual(ws.Cells["T24"].GetValue<string>(), 1.3961805555555555d.ToString(CultureInfo.CurrentCulture));
                 Assert.AreEqual(ws.Cells["T24"].GetValue<int>(), 1);
                 Assert.AreEqual(ws.Cells["T24"].GetValue<int?>(), 1);
-#if NETCOREAPP3_1_OR_GREATER
+#if !NETFRAMEWORK
                 Assert.AreEqual(ws.Cells["T24"].GetValue<double>(), 1.3961805555555555d);
                 Assert.AreEqual(ws.Cells["T24"].GetValue<double?>(), 1.3961805555555555d);
 #else
@@ -1106,7 +1106,7 @@ namespace EPPlusTest
             Console.WriteLine(rt.Bold.ToString());
             rt.Bold = true;
             Console.WriteLine(rt.Bold.ToString());
-        }   
+        }
         //[Ignore]
         //[TestMethod]
         public void FormulaError()
@@ -2262,7 +2262,7 @@ namespace EPPlusTest
 
             ws.BackgroundImage.Image = GetBitmap("Test1.jpg");
             ws = _pck.Workbook.Worksheets.Add("backimg2");
-#if NETCOREAPP
+#if !NETFRAMEWORK
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 return; // following wmf not supported on ubuntu 18.04
 #endif
@@ -2660,7 +2660,7 @@ namespace EPPlusTest
         Assert.AreEqual("'New Name'!C3", sheet.Cells[3, 3].Formula);
       }
     }
-    
+
     [TestMethod]
         public void CopyCellUpdatesRelativeCrossSheetReferencesCorrectly()
         {
@@ -3023,7 +3023,7 @@ namespace EPPlusTest
         public void DateFunctionsWorkWithDifferentCultureDateFormats_US()
         {
             var currentCulture = CultureInfo.CurrentCulture;
-#if NETCOREAPP
+#if !NETFRAMEWORK
             var us = CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 #else
             var us = CultureInfo.CreateSpecificCulture("en-US");
@@ -3059,7 +3059,7 @@ namespace EPPlusTest
                 throw ex;
             Assert.AreEqual(41654.0, usEoMonth);
             Assert.AreEqual(41670.0, usEdate);
-#if NETCOREAPP
+#if !NETFRAMEWORK
             CultureInfo.DefaultThreadCurrentCulture = currentCulture;
 #else
             Thread.CurrentThread.CurrentCulture = currentCulture;
@@ -3071,7 +3071,7 @@ namespace EPPlusTest
         {
             var currentCulture = CultureInfo.CurrentCulture;
 
-#if NETCOREAPP
+#if !NETFRAMEWORK
             var gb = CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
 #else
             var gb = CultureInfo.CreateSpecificCulture("en-GB");
@@ -3106,7 +3106,7 @@ namespace EPPlusTest
                 throw ex;
             Assert.AreEqual(41654.0, gbEoMonth);
             Assert.AreEqual(41670.0, gbEdate);
-#if NETCOREAPP
+#if NET
             CultureInfo.DefaultThreadCurrentCulture = currentCulture;
 #else
             Thread.CurrentThread.CurrentCulture = currentCulture;
@@ -3152,7 +3152,7 @@ namespace EPPlusTest
         }
         [TestMethod]
         public void Sort()
-        {            
+        {
             using (var package = OpenPackage("Sort.xlsx", true))
             {
                 var ws = package.Workbook.Worksheets.Add("Sorting");

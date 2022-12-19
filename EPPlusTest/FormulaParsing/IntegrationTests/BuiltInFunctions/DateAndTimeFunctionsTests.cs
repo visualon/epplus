@@ -1,15 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing;
-using OfficeOpenXml.FormulaParsing.ExpressionGraph;
 using FakeItEasy;
-using System.IO;
 using System.Threading;
+using System.Globalization;
 
 namespace EPPlusTest.FormulaParsing.IntegrationTests.BuiltInFunctions
 {
@@ -216,7 +211,7 @@ namespace EPPlusTest.FormulaParsing.IntegrationTests.BuiltInFunctions
             ws.Calculate();
             Assert.AreEqual(12, ws.Cells["B1"].Value);
         }
-#if (!NETCOREAPP)
+#if NETFRAMEWORK
         [TestMethod]
         public void DateValueTest1()
         {

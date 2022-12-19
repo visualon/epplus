@@ -1,13 +1,10 @@
 using System;
-using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml;
 using System.IO;
-using System.Diagnostics;
-using OfficeOpenXml.FormulaParsing;
 
 namespace EPPlusTest
 {
@@ -66,7 +63,7 @@ namespace EPPlusTest
             ws.SetValue("A1",( short)1);
             var v=ws.Calculate("2.5-A1+ABS(-3.0)-SIN(3)");
             Assert.AreEqual(4.3589, Math.Round((double)v, 4));
-                        
+
             ws.Row(1).Hidden = true;
             v = ws.Calculate("subtotal(109,a1:a10)");
             Assert.AreEqual(0D, v);
@@ -90,7 +87,7 @@ namespace EPPlusTest
         [TestMethod, Ignore]
         public void Calulation4()
         {
-#if NETCOREAPP
+#if NET
             var dir = AppContext.BaseDirectory;
             dir = Directory.GetParent(dir).Parent.Parent.Parent.FullName;
 #else
@@ -103,7 +100,7 @@ namespace EPPlusTest
         [TestMethod, Ignore]
         public void CalulationValidationExcel()
         {
-#if NETCOREAPP
+#if !NETFRAMEWORK
             var dir = AppContext.BaseDirectory;
             dir = Directory.GetParent(dir).Parent.Parent.Parent.FullName;
 #else
@@ -157,9 +154,9 @@ namespace EPPlusTest
         public void TestOneCell()
         {
             var pck = new ExcelPackage(new FileInfo(@"C:\temp\EPPlusTestark\Test4.xlsm"));
-            var ws = pck.Workbook.Worksheets.First(); 
+            var ws = pck.Workbook.Worksheets.First();
             pck.Workbook.Worksheets["Räntebärande formaterat utland"].Cells["M13"].Calculate();
-            Assert.AreEqual(0d, pck.Workbook.Worksheets["Räntebärande formaterat utland"].Cells["M13"].Value);  
+            Assert.AreEqual(0d, pck.Workbook.Worksheets["Räntebärande formaterat utland"].Cells["M13"].Value);
         }
         [Ignore]
         [TestMethod]
@@ -396,7 +393,7 @@ namespace EPPlusTest
                         }
                     }
                     catch (Exception e)
-                    {                        
+                    {
                         fileErr.WriteLine("Exception cell " + sheet.Name + "!" + adr + "\t" + fr[cell].ToString() + "\t" + sheet.Cells[adr].Value +  "\t" + e.Message);
                         fileErr.WriteLine("***************************");
                         fileErr.WriteLine(e.ToString());

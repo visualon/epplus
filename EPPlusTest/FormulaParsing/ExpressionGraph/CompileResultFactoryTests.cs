@@ -1,14 +1,14 @@
-﻿using System.Globalization;
-using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml.FormulaParsing.ExpressionGraph;
+using System.Globalization;
+using System.Threading;
 
 namespace EPPlusTest.FormulaParsing.ExpressionGraph
 {
     [TestClass]
     public class CompileResultFactoryTests
     {
-#if (!NETCOREAPP)
+#if NETFRAMEWORK
         [TestMethod]
         public void CalculateUsingEuropeanDates()
         {

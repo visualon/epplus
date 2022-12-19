@@ -13,7 +13,7 @@ namespace EPPlusTest.FormulaParsing.IntegrationTests
 
         public void BaseInitialize()
         {
-#if !NETCOREAPP
+#if NETFRAMEWORK
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;

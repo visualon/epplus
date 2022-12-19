@@ -1,11 +1,6 @@
-﻿using System;
 using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml;
 using System.IO;
-using OfficeOpenXml.DataValidation;
 using System.Xml;
 using System.Globalization;
 
@@ -37,8 +32,8 @@ namespace EPPlusTest.DataValidation
         protected string GetTestOutputPath(string fileName)
         {
             return Path.Combine(
-#if (NETCOREAPP)
-            Path.GetTempPath()      //In Net.Core Output to TempPath 
+#if !NETFRAMEWORK
+            Path.GetTempPath()      //In Net.Core Output to TempPath
 #else
             Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
 #endif

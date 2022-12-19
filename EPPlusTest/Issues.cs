@@ -14,10 +14,8 @@ using System.Collections.Generic;
 using OfficeOpenXml.Table.PivotTable;
 using OfficeOpenXml.Drawing.Chart;
 using System.Text;
-using System.Dynamic;
 using System.Globalization;
 using OfficeOpenXml.Drawing;
-using OfficeOpenXml.FormulaParsing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
@@ -49,7 +47,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue256_Row()
         {
-#if !NETCOREAPP
+#if NETFRAMEWORK
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -102,7 +100,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue256_Col()
         {
-#if !NETCOREAPP
+#if NETFRAMEWORK
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -156,7 +154,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue248()
         {
-#if !NETCOREAPP
+#if NETFRAMEWORK
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -192,7 +190,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue249()
         {
-#if !NETCOREAPP
+#if NETFRAMEWORK
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -225,7 +223,7 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue250()
         {
-#if !NETCOREAPP
+#if NETFRAMEWORK
             var dir = AppDomain.CurrentDomain.BaseDirectory;
 #else
             var dir = AppContext.BaseDirectory;
@@ -491,7 +489,7 @@ namespace EPPlusTest
             var dest = ws.Cells[1, column + columns, ws.Dimension.End.Row, ws.Dimension.End.Column + columns];
             source.Copy(dest);
         }
-#if !NETCOREAPP
+#if NETFRAMEWORK
         [TestMethod]
         public void Issue15123()
         {
@@ -1366,7 +1364,7 @@ namespace EPPlusTest
                 p.SaveAs(new FileInfo(path2));
 
                 // files are identical?
-#if (NETCOREAPP)
+#if !NETFRAMEWORK
                 var md5 = System.Security.Cryptography.MD5.Create();
 #else
                 var md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
@@ -2513,12 +2511,12 @@ namespace EPPlusTest
         }
 
         /// <summary>
-        ///  Not working 
+        ///  Not working
         /// </summary>
         [TestMethod]
         public void Issuer246()
         {
-#if NETCOREAPP
+#if !NETFRAMEWORK
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 Assert.Inconclusive("Only working on windows.");
 #endif
