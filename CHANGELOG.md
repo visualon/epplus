@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added `net6.0` and `net462`
+
+### Removed
+- Removed `netstandard2.1` and `net45`
+
+### Changed
+- Refactored project files.
 
 ## [1.1.0] - 2021-07-22
 
