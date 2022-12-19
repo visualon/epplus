@@ -5,18 +5,28 @@
     <DeleteDeploymentDirectoryAfterTestRunIsComplete>false</DeleteDeploymentDirectoryAfterTestRunIsComplete>
   </MSTest>
 
-  
+
   <DataCollectionRunSettings>
     <DataCollectors>
-      <DataCollector friendlyName="XPlat code coverage">
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0">
         <Configuration>
-          <Format>json,opencover</Format>
-          <Exclude>[EPPlusTest]*,[EPPlus]OfficeOpenXml.Packaging.Ionic.*</Exclude> <!-- [Assembly-Filter]Type-Filter -->
-          <Include>[EPPlus]*</Include> <!-- [Assembly-Filter]Type-Filter -->
-          <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
-          <SingleHit>false</SingleHit>
-          <UseSourceLink>true</UseSourceLink>
-          <IncludeTestAssembly>false</IncludeTestAssembly>
+          <Format>Cobertura</Format>
+          <CodeCoverage>
+            <ModulePaths>
+              <Include>
+                <ModulePath>EPPlus\.dll$</ModulePath>
+              </Include>
+            </ModulePaths>
+            <Attributes>
+              <Exclude>
+                <!-- Don't forget "Attribute" at the end of the name -->
+                <!--<Attribute>^System\.Diagnostics\.DebuggerHiddenAttribute$</Attribute>
+          <Attribute>^System\.Diagnostics\.DebuggerNonUserCodeAttribute$</Attribute>-->
+                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
+                <Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
+              </Exclude>
+            </Attributes>
+          </CodeCoverage>
         </Configuration>
       </DataCollector>
     </DataCollectors>

@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `netstandard2.1` and `net45`
 
 ### Changed
-- Refactored project files.
+- Refactored project files
+- Use `Microsoft.CodeCoverage` instead of `coverlet.collector`
 
 ## [1.1.0] - 2021-07-22
 

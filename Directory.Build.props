@@ -7,6 +7,13 @@
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
         <LangVersion>latest</LangVersion>
+
+        <FineCodeCoverage>
+          <Enabled>true</Enabled>
+          <RunMsCodeCoverage>true</RunMsCodeCoverage>
+          <!-- and more -->
+        </FineCodeCoverage>
+        <RunSettingsFilePath>$(MSBuildThisFileDirectory)/EPPlusTest.runsettings</RunSettingsFilePath>
     </PropertyGroup>
 
     <ItemGroup>
