@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net6.0;net472</TargetFrameworks>
@@ -7,7 +7,6 @@
     <AssemblyOriginatorKeyFile>EPPlusTest.snk</AssemblyOriginatorKeyFile>
     <Description>Package Description</Description>
     <IsPackable>false</IsPackable>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

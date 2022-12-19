@@ -2514,11 +2514,15 @@ namespace EPPlusTest
         ///  Not working
         /// </summary>
         [TestMethod]
-        public void Issuer246()
+        public void Issue246()
         {
 #if !NETFRAMEWORK
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 Assert.Inconclusive("Only working on windows.");
+#if NET6_0_OR_GREATER
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                Assert.Inconclusive("Doesn't work on windows on net6.0.");
+#endif
 #endif
 
             InitBase();
@@ -2531,10 +2535,16 @@ namespace EPPlusTest
             pkg = OpenPackage("issue246.xlsx");
             ws = _pck.Workbook.Worksheets["DateFormat"];
             var pCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
-            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("sv-Se");
-            Assert.AreEqual(ws.Cells["A1"].Text, "den 31 december 2018");
-            Assert.AreEqual(ws.GetValue<DateTime>(1, 1), new DateTime(2018, 12, 31));
-            System.Threading.Thread.CurrentThread.CurrentCulture = pCulture;
+            try
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("sv-Se");
+                Assert.AreEqual(ws.Cells["A1"].Text, "den 31 december 2018");
+                Assert.AreEqual(ws.GetValue<DateTime>(1, 1), new DateTime(2018, 12, 31));
+            }
+            finally
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = pCulture;
+            }
         }
 
         [TestMethod]
