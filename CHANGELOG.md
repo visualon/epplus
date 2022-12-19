@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored project files
 - Use `Microsoft.CodeCoverage` instead of `coverlet.collector`
 
+### Fixed
+- Add missing new keyword to `ExcelChart.Title`
+
 ## [1.1.0] - 2021-07-22
 
 ### Added

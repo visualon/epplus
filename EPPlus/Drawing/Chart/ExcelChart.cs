@@ -1215,7 +1215,7 @@ namespace OfficeOpenXml.Drawing.Chart
         /// <summary>
         /// Titel of the chart
         /// </summary>
-        public ExcelChartTitle Title
+        public new ExcelChartTitle Title
         {
             get
             {
