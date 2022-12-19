@@ -16,7 +16,7 @@
     <AssemblyOriginatorKeyFile>OpenOfficeXml.snk</AssemblyOriginatorKeyFile>
     <NeutralLanguage />
     <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release'">true</GenerateDocumentationFile>
-    <PackageReleaseNotes>See [CHANGELOG](https://github.com/visualon/epplus/blob/main/CHANGELOG.md) for changes</PackageReleaseNotes>
+    <PackageReleaseNotes>See https://github.com/visualon/epplus/releases for changes</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
