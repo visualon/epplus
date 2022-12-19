@@ -39,7 +39,7 @@ jobs:
         run: dotnet build EPPlusTest --no-restore
 
       - name: test
-        run: dotnet test EPPlusTest --no-build --collect:"XPlat Code Coverage" --settings EPPlusTest.runsettings
+        run: dotnet test EPPlusTest --no-build
 
       - name: Codecov
         uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # v3.1.1
