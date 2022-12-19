@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Globalization;
+using System.Threading;
 //using System.Diagnostics.Design;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml.FormulaParsing.ExcelUtilities;
@@ -63,7 +65,7 @@ namespace EPPlusTest
         [TestMethod]
         public void EvaluateShouldHandleDateArg()
         {
-            #if !!NETFRAMEWORK
+            #if !NETFRAMEWORK
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             #endif
             var result = _evaluator.Evaluate(new DateTime(2016,6,28), "2016-06-28");
@@ -73,7 +75,7 @@ namespace EPPlusTest
         [TestMethod]
         public void EvaluateShouldHandleDateArgWithOperator()
         {
-#if !!NETFRAMEWORK
+#if !NETFRAMEWORK
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 #endif
             var result = _evaluator.Evaluate(new DateTime(2016, 6, 28), ">2016-06-27");

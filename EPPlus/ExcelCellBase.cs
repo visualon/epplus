@@ -61,7 +61,7 @@ namespace OfficeOpenXml
             row = ((int)(cellID >> 29));
         }
         /// <summary>
-        /// Get the cellID for the cell. 
+        /// Get the cellID for the cell.
         /// </summary>
         /// <param name="SheetID"></param>
         /// <param name="row"></param>
@@ -132,8 +132,6 @@ namespace OfficeOpenXml
         /// <param name="part">the value to be translated</param>
         /// <param name="row"></param>
         /// <param name="col"></param>
-        /// <param name="rowIncr"></param>
-        /// <param name="colIncr"></param>
         /// <returns></returns>
         private static string ToR1C1(string part, int row, int col)
         {
@@ -189,9 +187,7 @@ namespace OfficeOpenXml
         /// </summary>
         /// <param name="part"></param>
         /// <param name="row"></param>
-        /// <param name="col"></param> 
-        /// <param name="rowIncr"></param>
-        /// <param name="colIncr"></param>
+        /// <param name="col"></param>
         /// <returns></returns>
         private static string ToAbs(string part, int row, int col)
         {
@@ -384,7 +380,7 @@ namespace OfficeOpenXml
                 return OffsetValue;
             }
             int num;
-            if (value[0] == '[' && value[value.Length - 1] == ']') //Offset?                
+            if (value[0] == '[' && value[value.Length - 1] == ']') //Offset?
             {
                 fixedAddr = false;
                 if (int.TryParse(value.Substring(1, value.Length - 2), NumberStyles.Any, CultureInfo.InvariantCulture, out num))
@@ -751,7 +747,7 @@ namespace OfficeOpenXml
                     return GetColumnLetter(FromColumn, FixedFromColumn) + ":" + GetColumnLetter(ToColumn, FixedToColumn);
                 }
                 else if (FromColumn == 1 && ToColumn == ExcelPackage.MaxColumns)
-                {                    
+                {
                     return (FixedFromRow ? "$":"") + FromRow.ToString() + ":" + (FixedToRow ? "$":"") + ToRow.ToString();
                 }
                 else
@@ -866,7 +862,7 @@ namespace OfficeOpenXml
                 if (r1 != "" && c1 != "" && r2 == "" && c2 == "")   //Single Cell
                 {
                     var column = GetColumn(c1);
-                    var row = int.Parse(r1);                    
+                    var row = int.Parse(r1);
                     ret =(column>=1 && column <= ExcelPackage.MaxColumns && row >= 1 && row <= ExcelPackage.MaxRows);
                 }
                 else if (r1 != "" && r2 != "" && c1 != "" && c2 != "") //Range
@@ -877,7 +873,7 @@ namespace OfficeOpenXml
                     var iC2 = GetColumn(c2);
 
                     ret = iC1 <= iC2 && iR1 <= iR2 &&
-                        iC1 >= 1 && iC2 <= ExcelPackage.MaxColumns && 
+                        iC1 >= 1 && iC2 <= ExcelPackage.MaxColumns &&
                         iR1 >= 1 && iR2 <= ExcelPackage.MaxRows;
 
                 }
@@ -885,7 +881,7 @@ namespace OfficeOpenXml
                 {
                     var iC1 = GetColumn(c1);
                     var iC2 = GetColumn(c2);
-                    ret = iC1 <= iC2 && 
+                    ret = iC1 <= iC2 &&
                         iC1 >= 1 && iC2 <= ExcelPackage.MaxColumns;
                 }
                 else if (r1 != "" && r2 != "" && c1 == "" && c2 == "")
@@ -893,7 +889,7 @@ namespace OfficeOpenXml
                     var iR1 = int.Parse(r2);
                     var iR2 = int.Parse(r2);
 
-                    ret = int.Parse(r1) <= iR2 && 
+                    ret = int.Parse(r1) <= iR2 &&
                         iR1 >=1 &&
                         iR2 <= ExcelPackage.MaxRows;
                 }
@@ -1023,7 +1019,7 @@ namespace OfficeOpenXml
                 return formula;
             }
         }
-    
+
         /// <summary>
         /// Updates all the references to a renamed sheet in a formula.
         /// </summary>
