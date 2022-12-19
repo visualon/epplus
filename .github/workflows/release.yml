@@ -68,7 +68,6 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
 
       - uses: marvinpinto/action-automatic-releases@919008cf3f741b179569b7a6fb4d8860689ab7f0 # v1.2.1
-        if: ${{ !contains(github.ref_name, '-') }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          #prerelease: ${{ contains(github.ref_name, '-') }}
+          prerelease: ${{ contains(github.ref_name, '-') }}
