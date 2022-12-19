@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  * ******************************************************************************
  * Jan Källman		    Initial Release		        2010-01-28
@@ -61,7 +61,7 @@ using OfficeOpenXml.Compatibility;
 namespace OfficeOpenXml
 {
     /// <summary>
-    /// A range of cells 
+    /// A range of cells
     /// </summary>
     public class ExcelRangeBase : ExcelAddress, IExcelCell, IDisposable, IEnumerable<ExcelRangeBase>, IEnumerator<ExcelRangeBase>
     {
@@ -124,7 +124,7 @@ namespace OfficeOpenXml
             SetDelegate();
         }
         #endregion
-        #region Set Value Delegates        
+        #region Set Value Delegates
         private static _changeProp _setUnknownProp = SetUnknown;
         private static _changeProp _setSingleProp = SetSingle;
         private static _changeProp _setRangeProp = SetRange;
@@ -210,7 +210,7 @@ namespace OfficeOpenXml
         private void SetValueAddress(ExcelAddress address, _setValue valueMethod, object value)
         {
             IsRangeValid("");
-            if (_fromRow == 1 && _fromCol == 1 && _toRow == ExcelPackage.MaxRows && _toCol == ExcelPackage.MaxColumns)  //Full sheet (ex ws.Cells.Value=0). Set value for A1 only to avoid hanging 
+            if (_fromRow == 1 && _fromCol == 1 && _toRow == ExcelPackage.MaxRows && _toCol == ExcelPackage.MaxColumns)  //Full sheet (ex ws.Cells.Value=0). Set value for A1 only to avoid hanging
             {
                 throw (new ArgumentException("Can't reference all cells. Please use the indexer to set the range"));
             }
@@ -286,7 +286,7 @@ namespace OfficeOpenXml
         /// <param name="IsArray">If the forumla is an array formula.</param>
         private static void Set_SharedFormula(ExcelRangeBase range, string value, ExcelAddress address, bool IsArray)
         {
-            if (range._fromRow == 1 && range._fromCol == 1 && range._toRow == ExcelPackage.MaxRows && range._toCol == ExcelPackage.MaxColumns)  //Full sheet (ex ws.Cells.Value=0). Set value for A1 only to avoid hanging 
+            if (range._fromRow == 1 && range._fromCol == 1 && range._toRow == ExcelPackage.MaxRows && range._toCol == ExcelPackage.MaxColumns)  //Full sheet (ex ws.Cells.Value=0). Set value for A1 only to avoid hanging
             {
                 throw (new InvalidOperationException("Can't set a formula for the entire worksheet"));
             }
@@ -598,7 +598,7 @@ namespace OfficeOpenXml
             return 0;
         }
         /// <summary>
-        /// The style ID. 
+        /// The style ID.
         /// It is not recomended to use this one. Use Named styles as an alternative.
         /// If you do, make sure that you use the Style.UpdateXml() method to update any new styles added to the workbook.
         /// </summary>
@@ -1364,7 +1364,7 @@ namespace OfficeOpenXml
         }
         protected ExcelRichTextCollection _rtc = null;
         /// <summary>
-        /// Cell value is richtext formatted. 
+        /// Cell value is richtext formatted.
         /// Richtext-property only apply to the left-top cell of the range.
         /// </summary>
         public ExcelRichTextCollection RichText
@@ -1423,7 +1423,7 @@ namespace OfficeOpenXml
             }
         }
         /// <summary>
-        /// WorkSheet object 
+        /// WorkSheet object
         /// </summary>
         public ExcelWorksheet Worksheet
         {
@@ -1515,7 +1515,7 @@ namespace OfficeOpenXml
         /// <param name="value">the value</param>
         internal void SetValueRichText(object value)
         {
-            if (_fromRow == 1 && _fromCol == 1 && _toRow == ExcelPackage.MaxRows && _toCol == ExcelPackage.MaxColumns)  //Full sheet (ex ws.Cells.Value=0). Set value for A1 only to avoid hanging 
+            if (_fromRow == 1 && _fromCol == 1 && _toRow == ExcelPackage.MaxRows && _toCol == ExcelPackage.MaxColumns)  //Full sheet (ex ws.Cells.Value=0). Set value for A1 only to avoid hanging
             {
                 SetValue(value, 1, 1);
             }
@@ -1601,7 +1601,7 @@ namespace OfficeOpenXml
             {
                 _worksheet._sharedFormulas.Remove(ix);
                 return;
-                //fRange.SetSharedFormulaID(int.MinValue); 
+                //fRange.SetSharedFormulaID(int.MinValue);
             }
             var firstCellCollide = address.Collide(new ExcelAddressBase(fRange._fromRow, fRange._fromCol, fRange._fromRow, fRange._fromCol));
             if (collide == eAddressCollition.Partly && (firstCellCollide == eAddressCollition.Inside || firstCellCollide == eAddressCollition.Equal)) //Do we need to split? Only if the functions first row is inside the new range.
@@ -2450,7 +2450,7 @@ namespace OfficeOpenXml
         {
             if (string.IsNullOrEmpty(Author))
             {
-#if NETSTANDARD
+#if NETSTANDARD || NET
                 Author = System.Security.Claims.ClaimsPrincipal.Current.Identity.Name;
 #else
                 Author = Thread.CurrentPrincipal.Identity.Name;
@@ -2485,7 +2485,7 @@ namespace OfficeOpenXml
                         styles = Destination._worksheet.Workbook.Styles;
             Dictionary<int, int> styleCashe = new Dictionary<int, int>();
 
-            //Clear all existing cells; 
+            //Clear all existing cells;
             int toRow = _toRow - _fromRow + 1,
                 toCol = _toCol - _fromCol + 1;
 
@@ -2669,7 +2669,7 @@ namespace OfficeOpenXml
                 }
             }
 
-            //Check that the range is not larger than the dimensions of the worksheet. 
+            //Check that the range is not larger than the dimensions of the worksheet.
             //If so set the copied range to the worksheet dimensions to avoid copying empty cells.
             ExcelAddressBase range;
 
@@ -2804,7 +2804,7 @@ namespace OfficeOpenXml
 
         public void Dispose()
         {
-            //_worksheet = null;            
+            //_worksheet = null;
         }
 
         #endregion

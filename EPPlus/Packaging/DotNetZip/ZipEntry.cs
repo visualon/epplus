@@ -57,7 +57,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
             _CompressionLevel = Ionic.Zlib.CompressionLevel.Default;
             _Encryption = EncryptionAlgorithm.None;
             _Source = ZipEntrySource.None;
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             AlternateEncoding = System.Text.Encoding.GetEncoding("UTF-8");
 #else
             AlternateEncoding = System.Text.Encoding.GetEncoding("IBM437");
@@ -2721,7 +2721,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
         private bool _skippedDuringSave;
         private UInt32 _diskNumber;
 
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
         private static System.Text.Encoding ibm437 = System.Text.Encoding.GetEncoding("UTF-8");
 #else
         private static System.Text.Encoding ibm437 = System.Text.Encoding.GetEncoding("IBM437");

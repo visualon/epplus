@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
-    
+
       - name: Setup .NET
         uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
         with:
@@ -33,13 +33,13 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
 
       - name: restore packages
-        run: dotnet restore EPPlusTest/EPPlusTest.Core.csproj
+        run: dotnet restore EPPlusTest
 
       - name: build
-        run: dotnet build EPPlusTest/EPPlusTest.Core.csproj --no-restore
+        run: dotnet build EPPlusTest --no-restore
 
       - name: test
-        run: dotnet test EPPlusTest/EPPlusTest.Core.csproj --no-build --collect:"XPlat Code Coverage" --settings EPPlusTest.runsettings
+        run: dotnet test EPPlusTest --no-build --collect:"XPlat Code Coverage" --settings EPPlusTest.runsettings
 
       - name: Codecov
         uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # v3.1.1
@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
         with:
           fetch-depth: 0
-    
+
       - name: Setup .NET
         uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
         with:
@@ -65,13 +65,13 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
 
       - name: restore packages
-        run: dotnet restore EPPlus/EPPlus.MultiTarget.csproj
+        run: dotnet restore EPPlus
 
       - name: build
-        run: dotnet build EPPlus/EPPlus.MultiTarget.csproj --no-restore
+        run: dotnet build EPPlus --no-restore
 
       - name: pack
-        run: dotnet pack EPPlus/EPPlus.MultiTarget.csproj --no-build
+        run: dotnet pack EPPlus --no-build
 
       - name: publish to github
         if: startsWith(github.ref, 'refs/tags/v')

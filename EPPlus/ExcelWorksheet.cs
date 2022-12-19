@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  * ******************************************************************************
  * Jan Källman		    Initial Release		        2011-11-02
@@ -441,7 +441,7 @@ namespace OfficeOpenXml
         public int Index { get { return (_positionID); } }
         /// <summary>
         /// Address for autofilter
-        /// <seealso cref="ExcelRangeBase.AutoFilter" />        
+        /// <seealso cref="ExcelRangeBase.AutoFilter" />
         /// </summary>
         public ExcelAddressBase AutoFilterAddress
         {
@@ -697,7 +697,7 @@ namespace OfficeOpenXml
         /** <outlinePr applyStyles="1" summaryBelow="0" summaryRight="0" /> **/
         const string outLineSummaryBelowPath = "d:sheetPr/d:outlinePr/@summaryBelow";
         /// <summary>
-        /// Summary rows below details 
+        /// Summary rows below details
         /// </summary>
         public bool OutLineSummaryBelow
         {
@@ -802,7 +802,7 @@ namespace OfficeOpenXml
         #region WorksheetXml
         /// <summary>
         /// The XML document holding the worksheet data.
-        /// All column, row, cell, pagebreak, merged cell and hyperlink-data are loaded into memory and removed from the document when loading the document.        
+        /// All column, row, cell, pagebreak, merged cell and hyperlink-data are loaded into memory and removed from the document when loading the document.
         /// </summary>
         public XmlDocument WorksheetXml
         {
@@ -875,7 +875,7 @@ namespace OfficeOpenXml
             _package.DoAdjustDrawings = false;
             Stream stream = packPart.GetStream();
 
-#if NETSTANDARD
+#if NETSTANDARD || NET
             var xr = XmlReader.Create(stream, new XmlReaderSettings() { DtdProcessing = DtdProcessing.Prohibit, IgnoreWhitespace = true });
 #else
             var xr = new XmlTextReader(stream);
@@ -900,7 +900,7 @@ namespace OfficeOpenXml
             stream.Dispose();
             packPart.Stream = new MemoryStream();
 
-            //first char is invalid sometimes?? 
+            //first char is invalid sometimes??
             if (xml[0] != '<')
                 LoadXmlSafe(_worksheetXml, xml.Substring(1, xml.Length - 1), encoding);
             else
@@ -998,7 +998,7 @@ namespace OfficeOpenXml
         const int BLOCKSIZE = 8192;
         /// <summary>
         /// Extracts the workbook XML without the sheetData-element (containing all cell data).
-        /// Xml-Cell data can be extreemly large (GB), so we find the sheetdata element in the streem (position start) and 
+        /// Xml-Cell data can be extreemly large (GB), so we find the sheetdata element in the streem (position start) and
         /// then tries to find the &lt;/sheetData&gt; element from the end-parameter.
         /// This approach is to avoid out of memory exceptions reading large packages
         /// </summary>
@@ -1023,7 +1023,7 @@ namespace OfficeOpenXml
                 sb.Append(block, 0, pos);
                 length += size;
             }
-            while (length < start + 20 && length < end);    //the  start-pos contains the stream position of the sheetData element. Add 20 (with some safty for whitespace, streampointer diff etc, just so be sure). 
+            while (length < start + 20 && length < end);    //the  start-pos contains the stream position of the sheetData element. Add 20 (with some safty for whitespace, streampointer diff etc, just so be sure).
             startmMatch = Regex.Match(sb.ToString(), string.Format("(<[^>]*{0}[^>]*>)", "sheetData"));
             if (!startmMatch.Success) //Not found
             {
@@ -1158,7 +1158,7 @@ namespace OfficeOpenXml
                 if (xr.LocalName == nodeText || xr.LocalName == altNode) return true;
             }
             while (xr.Read());
-#if !NETSTANDARD
+#if NETFRAMEWORK
             xr.Close();
 #endif
             return false;
@@ -1301,7 +1301,7 @@ namespace OfficeOpenXml
                     if (xr.GetAttribute("t") != null)
                     {
                         type = xr.GetAttribute("t");
-                        //_types.SetValue(address._fromRow, address._fromCol, type); 
+                        //_types.SetValue(address._fromRow, address._fromCol, type);
                     }
                     else
                     {
@@ -1582,7 +1582,7 @@ namespace OfficeOpenXml
         #endregion
         #region HeaderFooter
         /// <summary>
-        /// A reference to the header and footer class which allows you to 
+        /// A reference to the header and footer class which allows you to
         /// set the header and footer for all odd, even and first pages of the worksheet
         /// </summary>
         /// <remarks>
@@ -1637,14 +1637,14 @@ namespace OfficeOpenXml
         ///// </summary>
         ///// <param name="row">The row number in the worksheet</param>
         ///// <param name="col">The column number in the worksheet</param>
-        ///// <returns></returns>		
+        ///// <returns></returns>
         //internal ExcelCell Cell(int row, int col)
         //{
         //    return new ExcelCell(_values, row, col);
         //}
         /// <summary>
         /// Provides access to a range of cells
-        /// </summary>  
+        /// </summary>
         public ExcelRange Cells
         {
             get
@@ -1655,7 +1655,7 @@ namespace OfficeOpenXml
         }
         /// <summary>
         /// Provides access to the selected range of cells
-        /// </summary>  
+        /// </summary>
         public ExcelRange SelectedRange
         {
             get
@@ -1852,7 +1852,7 @@ namespace OfficeOpenXml
 
         #region InsertRow
         /// <summary>
-        /// Inserts a new row into the spreadsheet.  Existing rows below the position are 
+        /// Inserts a new row into the spreadsheet.  Existing rows below the position are
         /// shifted down.  All formula are updated to take account of the new row.
         /// </summary>
         /// <param name="rowFrom">The position of the new row</param>
@@ -1862,7 +1862,7 @@ namespace OfficeOpenXml
             InsertRow(rowFrom, rows, 0);
         }
         /// <summary>
-		/// Inserts a new row into the spreadsheet.  Existing rows below the position are 
+		/// Inserts a new row into the spreadsheet.  Existing rows below the position are
 		/// shifted down.  All formula are updated to take account of the new row.
 		/// </summary>
         /// <param name="rowFrom">The position of the new row</param>
@@ -1969,17 +1969,17 @@ namespace OfficeOpenXml
             }
         }
         /// <summary>
-        /// Inserts a new column into the spreadsheet.  Existing columns below the position are 
+        /// Inserts a new column into the spreadsheet.  Existing columns below the position are
         /// shifted down.  All formula are updated to take account of the new column.
         /// </summary>
         /// <param name="columnFrom">The position of the new column</param>
-        /// <param name="columns">Number of columns to insert</param>        
+        /// <param name="columns">Number of columns to insert</param>
         public void InsertColumn(int columnFrom, int columns)
         {
             InsertColumn(columnFrom, columns, 0);
         }
         ///<summary>
-        /// Inserts a new column into the spreadsheet.  Existing column to the left are 
+        /// Inserts a new column into the spreadsheet.  Existing column to the left are
         /// shifted.  All formula are updated to take account of the new column.
         /// </summary>
         /// <param name="columnFrom">The position of the new column</param>
@@ -2092,7 +2092,7 @@ namespace OfficeOpenXml
                         copyStylesFromColumn += columns;
                     }
 
-                    //Get styles to a cached list, 
+                    //Get styles to a cached list,
                     var l = new List<int[]>();
                     var sce = new CellsStoreEnumerator<ExcelCoreValue>(_values, 0, copyStylesFromColumn, ExcelPackage.MaxRows, copyStylesFromColumn);
                     lock (sce)
@@ -2196,7 +2196,7 @@ namespace OfficeOpenXml
         /// Adds a value to the row of merged cells to fix for inserts or deletes
         /// </summary>
         /// <param name="row"></param>
-        /// <param name="rows"></param> 
+        /// <param name="rows"></param>
         /// <param name="delete"></param>
         private void FixMergedCellsRow(int row, int rows, bool delete)
         {
@@ -2345,7 +2345,7 @@ namespace OfficeOpenXml
                     else
                     {
                         //Cells[f.Address].SetSharedFormulaID(int.MinValue);
-                        if (position <= fromRow && position + Math.Abs(rows) > toRow)  //Delete the formula 
+                        if (position <= fromRow && position + Math.Abs(rows) > toRow)  //Delete the formula
                         {
                             deleted.Add(f);
                         }
@@ -3084,9 +3084,9 @@ namespace OfficeOpenXml
         //    if (Drawings.UriDrawing!=null)
         //    {
         //        if (Drawings.Count == 0)
-        //        {                    
+        //        {
         //            Part.DeleteRelationship(Drawings._drawingRelation.Id);
-        //            _package.Package.DeletePart(Drawings.UriDrawing);                    
+        //            _package.Package.DeletePart(Drawings.UriDrawing);
         //        }
         //        else
         //        {
@@ -3429,7 +3429,7 @@ namespace OfficeOpenXml
                                 string name;
                                 if (df.Function == DataFieldFunctions.None)
                                 {
-                                    name = df.Field.Name; //Name must be set or Excel will crash on rename.                                
+                                    name = df.Field.Name; //Name must be set or Excel will crash on rename.
                                 }
                                 else
                                 {
@@ -3585,7 +3585,7 @@ namespace OfficeOpenXml
             StringBuilder breaks = new StringBuilder();
             int count = 0;
             var cse = new CellsStoreEnumerator<ExcelCoreValue>(_values, 0, 0, ExcelPackage.MaxRows, 0);
-            //foreach(ExcelRow row in _rows)            
+            //foreach(ExcelRow row in _rows)
             while (cse.Next())
             {
                 var row = cse.Value._value as RowInternal;
@@ -3890,7 +3890,7 @@ namespace OfficeOpenXml
         private object GetFormulaValue(object v)
         {
             //if (_package.Workbook._isCalculated)
-            //{                    
+            //{
             if (v != null && v.ToString() != "")
             {
                 return "<v>" + ConvertUtil.ExcelEscapeString(GetValueForXml(v)) + "</v>"; //Fixes issue 15071
@@ -4070,7 +4070,7 @@ namespace OfficeOpenXml
         }
 
         /// <summary>
-        /// Update xml with hyperlinks 
+        /// Update xml with hyperlinks
         /// </summary>
         /// <param name="sw">The stream</param>
         private void UpdateHyperLinks(StreamWriter sw)
@@ -4158,7 +4158,7 @@ namespace OfficeOpenXml
             return _worksheetXml.DocumentElement.InsertAfter(hl, prevNode);
         }
         /// <summary>
-        /// Dimension address for the worksheet. 
+        /// Dimension address for the worksheet.
         /// Top left cell to Bottom right.
         /// If the worksheet has no cells, null is returned
         /// </summary>
@@ -4227,7 +4227,7 @@ namespace OfficeOpenXml
         #region SparklineGroups
         ExcelSparklineGroupCollection _sparklineGroups = null;
         /// <summary>
-        /// Collection of Sparkline-objects. 
+        /// Collection of Sparkline-objects.
         /// Sparklines are small in-cell charts.
         /// </summary>
         public ExcelSparklineGroupCollection SparklineGroups
@@ -4334,7 +4334,7 @@ namespace OfficeOpenXml
             }
         }
         /// <summary>
-		/// Returns the style ID given a style name.  
+		/// Returns the style ID given a style name.
 		/// The style ID will be created if not found, but only if the style name exists!
 		/// </summary>
 		/// <param name="StyleName"></param>
@@ -4364,7 +4364,7 @@ namespace OfficeOpenXml
 
         /// <summary>
         /// Get the next ID from a shared formula or an Array formula
-        /// Sharedforumlas will have an id from 0-x. Array formula ids start from 0x4000001-. 
+        /// Sharedforumlas will have an id from 0-x. Array formula ids start from 0x4000001-.
         /// </summary>
         /// <param name="isArray">If the formula is an array formula</param>
         /// <returns></returns>

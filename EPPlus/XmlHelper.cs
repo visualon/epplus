@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						         Date
  * ******************************************************************************
  * Jan Källman		    Initial Release		         2009-10-01
@@ -42,8 +42,8 @@ using System.IO;
 namespace OfficeOpenXml
 {
 	/// <summary>
-	/// Help class containing XML functions. 
-	/// Can be Inherited 
+	/// Help class containing XML functions.
+	/// Can be Inherited
 	/// </summary>
 	public abstract class XmlHelper
 	{
@@ -244,7 +244,7 @@ namespace OfficeOpenXml
     /// <remarks>
 		/// 1. "d:conditionalFormatting"
 		///		1.1. Creates/find the first "conditionalFormatting" node
-		/// 
+		///
 		/// 2. "d:conditionalFormatting/@sqref"
 		///		2.1. Creates/find the first "conditionalFormatting" node
 		///		2.2. Creates (if not exists) the @sqref attribute
@@ -257,14 +257,14 @@ namespace OfficeOpenXml
 		/// 4. "d:conditionalFormatting[@id='7']/@sqref='X1:X5'"
 		///		4.1. Creates/find the first "conditionalFormatting" node with @id=7
 		///		4.2. Creates/update its @sqref attribute to "X1:X5"
-		///	
+		///
 		/// 5. "d:conditionalFormatting[@id='7']/@id='8'/@sqref='X1:X5'/d:cfRule/@id='AB'"
 		///		5.1. Creates/find the first "conditionalFormatting" node with @id=7
 		///		5.2. Set its @id attribute to "8"
 		///		5.2. Creates/update its @sqref attribute and set it to "X1:X5"
 		///		5.3. Creates/find the first "cfRule" node (inside the node)
 		///		5.4. Creates/update its @id attribute to "AB"
-		///	
+		///
 		/// 6. "d:cfRule/@id=''"
 		///		6.1. Creates/find the first "cfRule" node
 		///		6.1. Remove the @id attribute
@@ -314,7 +314,7 @@ namespace OfficeOpenXml
 						string[] attributeSplit = subPath.Split('=');
 						string attributeName = attributeSplit[0].Substring(1, attributeSplit[0].Length - 1);
 						string attributeValue = null;	// Null means no attribute value
-                        
+
 						// Check if we have an attribute value to set
 						if (attributeSplit.Length > 1)
 						{
@@ -738,7 +738,7 @@ namespace OfficeOpenXml
 					return null;
 				}
 			}
-		}		
+		}
         internal double GetXmlNodeDouble(string path)
 		{
 			string s = GetXmlNodeString(path);
@@ -828,10 +828,10 @@ namespace OfficeOpenXml
         {
             XmlReaderSettings settings = new XmlReaderSettings();
             //Disable entity parsing (to aviod xmlbombs, External Entity Attacks etc).
-#if(NETSTANDARD)
+#if NETSTANDARD || NET
             settings.DtdProcessing = DtdProcessing.Prohibit;
 #else
-            settings.ProhibitDtd = true;            
+            settings.ProhibitDtd = true;
 #endif
             XmlReader reader = XmlReader.Create(stream, settings);
             xmlDoc.Load(reader);

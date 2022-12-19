@@ -3633,13 +3633,13 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
         private Int64 _OffsetOfCentralDirectory64;
         private Nullable<bool> _OutputUsesZip64;
         internal bool _inExtractAll;
-#if (NETSTANDARD)
-        private System.Text.Encoding _alternateEncoding = System.Text.Encoding.GetEncoding("UTF-8"); 
+#if NETSTANDARD || NET
+        private System.Text.Encoding _alternateEncoding = System.Text.Encoding.GetEncoding("UTF-8");
 #else
-        private System.Text.Encoding _alternateEncoding = System.Text.Encoding.GetEncoding("IBM437"); 
+        private System.Text.Encoding _alternateEncoding = System.Text.Encoding.GetEncoding("IBM437");
 #endif
         private ZipOption _alternateEncodingUsage = ZipOption.Never;
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
         private static System.Text.Encoding _defaultEncoding = System.Text.Encoding.GetEncoding("UTF-8");
 #else
         private static System.Text.Encoding _defaultEncoding = System.Text.Encoding.GetEncoding("IBM437");

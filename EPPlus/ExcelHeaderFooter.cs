@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  *******************************************************************************
  * Jan Källman		                Initial Release		        2009-10-01
@@ -42,7 +42,7 @@ using OfficeOpenXml.Utils;
 using OfficeOpenXml.Compatibility;
 
 namespace OfficeOpenXml
-{    
+{
     /// <summary>
     /// How a picture will be aligned in the header/footer
     /// </summary>
@@ -63,7 +63,7 @@ namespace OfficeOpenXml
     }
     #region class ExcelHeaderFooterText
 	/// <summary>
-    /// Print header and footer 
+    /// Print header and footer
     /// </summary>
 	public class ExcelHeaderFooterText
 	{
@@ -75,7 +75,7 @@ namespace OfficeOpenXml
             _hf = hf;
             if (TextNode == null || string.IsNullOrEmpty(TextNode.InnerText)) return;
             string text = TextNode.InnerText;
-            string code = text.Substring(0, 2);  
+            string code = text.Substring(0, 2);
             int startPos=2;
             for (int pos=startPos;pos<text.Length-2;pos++)
             {
@@ -127,7 +127,7 @@ namespace OfficeOpenXml
             string id = ValidateImage(Alignment);
 
             //Add the image
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             var img=ImageCompat.GetImageAsByteArray(Picture);
 #else
             ImageConverter ic = new ImageConverter();
@@ -163,7 +163,7 @@ namespace OfficeOpenXml
 
             string contentType = ExcelPicture.GetContentType(PictureFile.Extension);
             var uriPic = XmlHelper.GetNewUri(_ws._package.Package, "/xl/media/" + PictureFile.Name.Substring(0, PictureFile.Name.Length-PictureFile.Extension.Length) + "{0}" + PictureFile.Extension);
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             var imgBytes=ImageCompat.GetImageAsByteArray(Picture);
 #else
             var ic = new ImageConverter();
@@ -179,7 +179,7 @@ namespace OfficeOpenXml
         {
             double width = Picture.Width * 72 / Picture.HorizontalResolution,      //Pixel --> Points
                    height = Picture.Height * 72 / Picture.VerticalResolution;      //Pixel --> Points
-            //Add VML-drawing            
+            //Add VML-drawing
             return _ws.HeaderFooter.Pictures.Add(id, ii.Uri, "", width, height);
         }
         private string ValidateImage(PictureAlignment Alignment)
@@ -366,91 +366,91 @@ namespace OfficeOpenXml
         /// Provides access to the header on odd numbered pages of the document.
         /// If you want the same header on both odd and even pages, then only set values in this ExcelHeaderFooterText class.
         /// </summary>
-        public ExcelHeaderFooterText OddHeader 
-        { 
-            get 
+        public ExcelHeaderFooterText OddHeader
+        {
+            get
             {
                 if (_oddHeader == null)
                 {
                     _oddHeader = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:oddHeader", NameSpaceManager), _ws, "H");
                 }
-                return _oddHeader; } 
+                return _oddHeader; }
         }
 		/// <summary>
 		/// Provides access to the footer on odd numbered pages of the document.
 		/// If you want the same footer on both odd and even pages, then only set values in this ExcelHeaderFooterText class.
 		/// </summary>
-		public ExcelHeaderFooterText OddFooter 
-        { 
-            get 
+		public ExcelHeaderFooterText OddFooter
+        {
+            get
             {
                 if (_oddFooter == null)
                 {
                     _oddFooter = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:oddFooter", NameSpaceManager), _ws, "F"); ;
                 }
-                return _oddFooter; 
-            } 
+                return _oddFooter;
+            }
         }
 		// evenHeader and evenFooter set differentOddEven = true
 		/// <summary>
 		/// Provides access to the header on even numbered pages of the document.
 		/// </summary>
-		public ExcelHeaderFooterText EvenHeader 
-        { 
-            get 
+		public ExcelHeaderFooterText EvenHeader
+        {
+            get
             {
                 if (_evenHeader == null)
                 {
                     _evenHeader = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:evenHeader", NameSpaceManager), _ws, "HEVEN");
                     differentOddEven = true;
                 }
-                return _evenHeader; 
-            } 
+                return _evenHeader;
+            }
         }
 		/// <summary>
 		/// Provides access to the footer on even numbered pages of the document.
 		/// </summary>
 		public ExcelHeaderFooterText EvenFooter
-        { 
-            get 
+        {
+            get
             {
                 if (_evenFooter == null)
                 {
                     _evenFooter = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:evenFooter", NameSpaceManager), _ws, "FEVEN");
                     differentOddEven = true;
                 }
-                return _evenFooter ; 
-            } 
+                return _evenFooter ;
+            }
         }
 		/// <summary>
 		/// Provides access to the header on the first page of the document.
 		/// </summary>
 		public ExcelHeaderFooterText FirstHeader
-        { 
-            get 
+        {
+            get
             {
                 if (_firstHeader == null)
                 {
-                    _firstHeader = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:firstHeader", NameSpaceManager), _ws, "HFIRST"); 
+                    _firstHeader = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:firstHeader", NameSpaceManager), _ws, "HFIRST");
                      differentFirst = true;
                 }
-                return _firstHeader; 
-            } 
+                return _firstHeader;
+            }
         }
 		/// <summary>
 		/// Provides access to the footer on the first page of the document.
 		/// </summary>
 		public ExcelHeaderFooterText FirstFooter
-        { 
-            get 
+        {
+            get
             {
                 if (_firstFooter == null)
                 {
-                    _firstFooter = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:firstFooter", NameSpaceManager), _ws, "FFIRST"); 
+                    _firstFooter = new ExcelHeaderFooterText(TopNode.SelectSingleNode("d:firstFooter", NameSpaceManager), _ws, "FFIRST");
                     differentFirst = true;
                 }
-                return _firstFooter; 
-            } 
+                return _firstFooter;
+            }
         }
         private ExcelVmlDrawingPictureCollection _vmlDrawingsHF = null;
         /// <summary>
@@ -498,7 +498,7 @@ namespace OfficeOpenXml
                 SetXmlNodeString("d:oddFooter", GetText(OddFooter));
 			}
 
-			// only set evenHeader and evenFooter 
+			// only set evenHeader and evenFooter
 			if (differentOddEven)
 			{
 				if (_evenHeader != null)

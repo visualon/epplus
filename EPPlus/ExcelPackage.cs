@@ -13,22 +13,22 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  * ******************************************************************************
  * Jan Källman		                Initial Release		        2009-10-01
- * Starnuto Di Topo & Jan Källman   Added stream constructors 
- *                                  and Load method Save as 
+ * Starnuto Di Topo & Jan Källman   Added stream constructors
+ *                                  and Load method Save as
  *                                  stream                      2010-03-14
  * Jan Källman		License changed GPL-->LGPL 2011-12-27
  *******************************************************************************/
@@ -47,7 +47,7 @@ using System.Configuration;
 using OfficeOpenXml.Compatibility;
 using System.Text;
 using System.Drawing.Imaging;
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
 using Microsoft.Extensions.Configuration;
 #endif
 namespace OfficeOpenXml
@@ -73,7 +73,7 @@ namespace OfficeOpenXml
         Level9 = 9,
     }
     /// <summary>
-    /// Represents an Excel 2007/2010 XLSX file package.  
+    /// Represents an Excel 2007/2010 XLSX file package.
     /// This is the top-level object to access all parts of the document.
     /// </summary>
     /// <remarks>
@@ -116,7 +116,7 @@ namespace OfficeOpenXml
     ///         worksheet.Cells["E2:E4"].Formula = "C2*D2";
     ///
     ///            //Ok now format the values;
-    ///         using (var range = worksheet.Cells[1, 1, 1, 5]) 
+    ///         using (var range = worksheet.Cells[1, 1, 1, 5])
     ///          {
     ///             range.Style.Font.Bold = true;
     ///             range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -136,7 +136,7 @@ namespace OfficeOpenXml
     ///
     ///         worksheet.Cells["A1:E5"].AutoFitColumns(0);
     ///
-    ///         // lets set the header text 
+    ///         // lets set the header text
     ///         worksheet.HeaderFooter.oddHeader.CenteredText = "&amp;24&amp;U&amp;\"Arial,Regular Bold\" Inventory";
     ///         // add the page number to the footer plus the total number of pages
     ///         worksheet.HeaderFooter.oddFooter.RightAlignedText =
@@ -246,17 +246,17 @@ namespace OfficeOpenXml
         private Packaging.ZipPackage _package;
         internal ExcelWorkbook _workbook;
         /// <summary>
-        /// Maximum number of columns in a worksheet (16384). 
+        /// Maximum number of columns in a worksheet (16384).
         /// </summary>
         public const int MaxColumns = 16384;
         /// <summary>
-        /// Maximum number of rows in a worksheet (1048576). 
+        /// Maximum number of rows in a worksheet (1048576).
         /// </summary>
         public const int MaxRows = 1048576;
         #endregion
         #region ExcelPackage Constructors
         /// <summary>
-        /// Create a new instance of the ExcelPackage. 
+        /// Create a new instance of the ExcelPackage.
         /// Output is accessed through the Stream property, using the <see cref="SaveAs(FileInfo)"/> method or later set the <see cref="File" /> property.
         /// </summary>
         public ExcelPackage()
@@ -265,7 +265,7 @@ namespace OfficeOpenXml
             ConstructNewFile(null);
         }
         /// <summary>
-		/// Create a new instance of the ExcelPackage class based on a existing file or creates a new file. 
+		/// Create a new instance of the ExcelPackage class based on a existing file or creates a new file.
 		/// </summary>
 		/// <param name="newFile">If newFile exists, it is opened.  Otherwise it is created from scratch.</param>
         public ExcelPackage(FileInfo newFile)
@@ -275,7 +275,7 @@ namespace OfficeOpenXml
             ConstructNewFile(null);
         }
         /// <summary>
-        /// Create a new instance of the ExcelPackage class based on a existing file or creates a new file. 
+        /// Create a new instance of the ExcelPackage class based on a existing file or creates a new file.
         /// </summary>
         /// <param name="newFile">If newFile exists, it is opened.  Otherwise it is created from scratch.</param>
         /// <param name="password">Password for an encrypted package</param>
@@ -437,7 +437,7 @@ namespace OfficeOpenXml
 
         internal ImageInfo AddImage(byte[] image, Uri uri, string contentType, string ext)
         {
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             var hashProvider = SHA1.Create();
 #else
             var hashProvider = new SHA1CryptoServiceProvider();
@@ -465,7 +465,7 @@ namespace OfficeOpenXml
         }
         internal ImageInfo LoadImage(byte[] image, Uri uri, Packaging.ZipPackagePart imagePart)
         {
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             var hashProvider = SHA1.Create();
 #else
             var hashProvider = new SHA1CryptoServiceProvider();
@@ -499,7 +499,7 @@ namespace OfficeOpenXml
         }
         internal ImageInfo GetImageInfo(byte[] image)
         {
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             var hashProvider = SHA1.Create();
 #else
             var hashProvider = new SHA1CryptoServiceProvider();
@@ -532,7 +532,7 @@ namespace OfficeOpenXml
         private void Init()
         {
             DoAdjustDrawings = true;
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  //Add Support for codepage 1252
 
             var build = new ConfigurationBuilder()
@@ -716,7 +716,7 @@ namespace OfficeOpenXml
         }
         private XmlNamespaceManager CreateDefaultNSM()
         {
-            //  Create a NamespaceManager to handle the default namespace, 
+            //  Create a NamespaceManager to handle the default namespace,
             //  and create a prefix for the default namespace:
             NameTable nt = new NameTable();
             var ns = new XmlNamespaceManager(nt);
@@ -731,7 +731,7 @@ namespace OfficeOpenXml
             ns.AddNamespace("ctp", schemaCustom);
             // core properties
             ns.AddNamespace("cp", schemaCore);
-            // core property namespaces 
+            // core property namespaces
             ns.AddNamespace("dc", schemaDc);
             ns.AddNamespace("dcterms", schemaDcTerms);
             ns.AddNamespace("dcmitype", schemaDcmiType);
@@ -839,7 +839,7 @@ namespace OfficeOpenXml
             {
                 if (_stream is MemoryStream && _stream.Length > 0)
                 {
-                    //Close any open memorystream and "renew" then. This can occure if the package is saved twice. 
+                    //Close any open memorystream and "renew" then. This can occure if the package is saved twice.
                     //The stream is left open on save to enable the user to read the stream-property.
                     //Non-memorystream streams will leave the closing to the user before saving a second time.
                     CloseStream();
@@ -921,7 +921,7 @@ namespace OfficeOpenXml
         /// Saves all the components back into the package.
         /// This method recursively calls the Save method on all sub-components.
         /// The package is closed after it has ben saved
-        /// d to encrypt the workbook with. 
+        /// d to encrypt the workbook with.
         /// </summary>
         /// <param name="password">This parameter overrides the Workbook.Encryption.Password.</param>
         public void Save(string password)
@@ -931,7 +931,7 @@ namespace OfficeOpenXml
         }
         /// <summary>
         /// Saves the workbook to a new file
-        /// The package is closed after it has been saved        
+        /// The package is closed after it has been saved
         /// </summary>
         /// <param name="file">The file location</param>
         public void SaveAs(FileInfo file)
@@ -944,7 +944,7 @@ namespace OfficeOpenXml
         /// The package is closed after it has been saved
         /// </summary>
         /// <param name="file">The file</param>
-        /// <param name="password">The password to encrypt the workbook with. 
+        /// <param name="password">The password to encrypt the workbook with.
         /// This parameter overrides the Encryption.Password.</param>
         public void SaveAs(FileInfo file, string password)
         {
@@ -972,7 +972,7 @@ namespace OfficeOpenXml
         /// The package is closed after it has been saved
         /// </summary>
         /// <param name="OutputStream">The stream to copy the package to</param>
-        /// <param name="password">The password to encrypt the workbook with. 
+        /// <param name="password">The password to encrypt the workbook with.
         /// This parameter overrides the Encryption.Password.</param>
         public void SaveAs(Stream OutputStream, string password)
         {
@@ -1023,7 +1023,7 @@ namespace OfficeOpenXml
         #endregion
         /// <summary>
         /// Compression option for the package
-        /// </summary>        
+        /// </summary>
         public CompressionLevel Compression
         {
             get
@@ -1069,9 +1069,9 @@ namespace OfficeOpenXml
         /// Saves and returns the Excel files as a bytearray.
         /// Note that the package is closed upon save
         /// </summary>
-        /// <example>      
+        /// <example>
         /// Example how to return a document from a Webserver...
-        /// <code> 
+        /// <code>
         ///  ExcelPackage package=new ExcelPackage();
         ///  /**** ... Create the document ****/
         ///  Byte[] bin = package.GetAsByteArray();
@@ -1089,9 +1089,9 @@ namespace OfficeOpenXml
         /// Saves and returns the Excel files as a bytearray
         /// Note that the package is closed upon save
         /// </summary>
-        /// <example>      
+        /// <example>
         /// Example how to return a document from a Webserver...
-        /// <code> 
+        /// <code>
         ///  ExcelPackage package=new ExcelPackage();
         ///  /**** ... Create the document ****/
         ///  Byte[] bin = package.GetAsByteArray();
@@ -1100,7 +1100,7 @@ namespace OfficeOpenXml
         ///  Response.BinaryWrite(bin);
         /// </code>
         /// </example>
-        /// <param name="password">The password to encrypt the workbook with. 
+        /// <param name="password">The password to encrypt the workbook with.
         /// This parameter overrides the Encryption.Password.</param>
         /// <returns></returns>
         public byte[] GetAsByteArray(string password)
@@ -1154,9 +1154,9 @@ namespace OfficeOpenXml
             Load(input, new MemoryStream(), Password);
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        /// <param name="input"></param>    
+        /// <param name="input"></param>
         /// <param name="output"></param>
         /// <param name="Password"></param>
         private void Load(Stream input, Stream output, string Password)
@@ -1219,7 +1219,7 @@ namespace OfficeOpenXml
             this._workbook = null;
         }
         static object _lock = new object();
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
         internal int _worksheetAdd = 0;
 #else
         internal int _worksheetAdd=1;

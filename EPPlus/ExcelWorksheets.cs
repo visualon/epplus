@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  * ******************************************************************************
  * Jan Källman		    Initial Release		       2009-10-01
@@ -174,7 +174,7 @@ namespace OfficeOpenXml
                 _pck.Package.Flush();
 
                 string rel = CreateWorkbookRel(Name, sheetID, uriWorksheet, isChart);
-                
+
                 int positionID = _worksheets.Count + _pck._worksheetAdd;
                 ExcelWorksheet worksheet;
                 if (isChart)
@@ -237,7 +237,7 @@ namespace OfficeOpenXml
                 {
                     CopyComment(Copy, added);
                 }
-                else if (Copy.VmlDrawingsComments.Count > 0)    //Vml drawings are copied as part of the comments. 
+                else if (Copy.VmlDrawingsComments.Count > 0)    //Vml drawings are copied as part of the comments.
                 {
                     CopyVmlDrawing(Copy, added);
                 }
@@ -245,7 +245,7 @@ namespace OfficeOpenXml
                 //Copy HeaderFooter
                 CopyHeaderFooterPictures(Copy, added);
 
-                //Copy all relationships 
+                //Copy all relationships
                 //CopyRelationShips(Copy, added);
                 if (Copy.Drawings.Count > 0)
                 {
@@ -463,7 +463,7 @@ namespace OfficeOpenXml
                 streamCd.Write(xml);
                 streamCd.Flush();
 
-                added.Workbook.AddPivotTable(cacheId.ToString(), uriCd); 
+                added.Workbook.AddPivotTable(cacheId.ToString(), uriCd);
 
                 xml = "<pivotCacheRecords xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" count=\"0\" />";
                 var uriRec = new Uri(string.Format("/xl/pivotCache/pivotCacheRecords{0}.xml", Id), UriKind.Relative);
@@ -494,7 +494,7 @@ namespace OfficeOpenXml
             if (Copy.HeaderFooter._evenFooter != null) CopyText(Copy.HeaderFooter._evenFooter, added.HeaderFooter.EvenFooter);
             if (Copy.HeaderFooter._firstHeader != null) CopyText(Copy.HeaderFooter._firstHeader, added.HeaderFooter.FirstHeader);
             if (Copy.HeaderFooter._firstFooter != null) CopyText(Copy.HeaderFooter._firstFooter, added.HeaderFooter.FirstFooter);
-            
+
             //Copy any images;
             if (Copy.HeaderFooter.Pictures.Count > 0)
             {
@@ -533,18 +533,18 @@ namespace OfficeOpenXml
                 added.MergedCells.Add(new ExcelAddress(r),false);
             }
 
-            //Shared Formulas   
+            //Shared Formulas
             foreach (int key in Copy._sharedFormulas.Keys)
             {
                 added._sharedFormulas.Add(key, Copy._sharedFormulas[key].Clone());
             }
-            
+
             Dictionary<int, int> styleCashe = new Dictionary<int, int>();
             //Cells
             int row,col;
             var val = new CellsStoreEnumerator<ExcelCoreValue>(Copy._values);
             while(val.Next())
-            {                
+            {
                 row = val.Row;
                 col = val.Column;
                 int styleID=0;
@@ -567,7 +567,7 @@ namespace OfficeOpenXml
                         r.Clone(added);
                         styleID = r.StyleID;
                     }
-                    
+
                 }
                 else
                 {
@@ -618,7 +618,7 @@ namespace OfficeOpenXml
         }
 
         private void CopyComment(ExcelWorksheet Copy, ExcelWorksheet workSheet)
-        {            
+        {
             //First copy the drawing XML
             string xml = Copy.Comments.CommentXml.InnerXml;
             var uriComment = new Uri(string.Format("/xl/comments{0}.xml", workSheet.SheetID), UriKind.Relative);
@@ -663,9 +663,9 @@ namespace OfficeOpenXml
         }
         private void CopyDrawing(ExcelWorksheet Copy, ExcelWorksheet workSheet/*, PackageRelationship r*/)
         {
-            
-                //First copy the drawing XML                
-                string xml = Copy.Drawings.DrawingXml.OuterXml;            
+
+                //First copy the drawing XML
+                string xml = Copy.Drawings.DrawingXml.OuterXml;
                 var uriDraw=new Uri(string.Format("/xl/drawings/drawing{0}.xml", workSheet.SheetID),  UriKind.Relative);
                 var part= _pck.Package.CreatePart(uriDraw,"application/vnd.openxmlformats-officedocument.drawing+xml", _pck.Compression);
                 StreamWriter streamDrawing = new StreamWriter(part.GetStream(FileMode.Create, FileAccess.Write));
@@ -708,7 +708,7 @@ namespace OfficeOpenXml
                             var picPart = workSheet.Workbook._package.Package.CreatePart(uri, pic.ContentType, CompressionLevel.None);
                             pic.Image.Save(picPart.GetStream(FileMode.Create, FileAccess.Write), ExcelPicture.GetImageFormat(pic.ContentType));
                         }
-                        
+
                         var rel = part.CreateRelationship(UriHelper.GetRelativeUri(workSheet.WorksheetUri, uri), Packaging.TargetMode.Internal, ExcelPackage.schemaRelationships + "/image");
                         //Fixes problem with invalid image when the same image is used more than once.
                         XmlNode relAtt =
@@ -743,7 +743,7 @@ namespace OfficeOpenXml
                     c._height = draw._height;
                     c._width = draw._width;
                 }
-            }            
+            }
         }
 
         private void CopyVmlDrawing(ExcelWorksheet origSheet, ExcelWorksheet newSheet)
@@ -756,7 +756,7 @@ namespace OfficeOpenXml
 				streamDrawing.Write(xml);
                 streamDrawing.Flush();
             }
-			
+
             //Add the relationship ID to the worksheet xml.
 			var vmlRelation = newSheet.Part.CreateRelationship(UriHelper.GetRelativeUri(newSheet.WorksheetUri,vmlUri), Packaging.TargetMode.Internal, ExcelPackage.schemaRelationships + "/vmlDrawing");
 			var e = newSheet.WorksheetXml.SelectSingleNode("//d:legacyDrawing", _namespaceManager) as XmlElement;
@@ -830,7 +830,7 @@ namespace OfficeOpenXml
             {
               throw new ArgumentException("The worksheet name can not start or end with an apostrophe.");
             }
-            if (Name.Length > 31) Name = Name.Substring(0, 31);   //A sheet can have max 31 char's            
+            if (Name.Length > 31) Name = Name.Substring(0, 31);   //A sheet can have max 31 char's
             return Name;
         }
         /// <summary>
@@ -897,15 +897,15 @@ namespace OfficeOpenXml
 		{
 			/*
             * Hack to prefetch all the drawings,
-            * so that all the images are referenced, 
-            * to prevent the deletion of the image file, 
+            * so that all the images are referenced,
+            * to prevent the deletion of the image file,
             * when referenced more than once
             */
             foreach (var ws in _worksheets)
             {
-                var drawings = ws.Value.Drawings; 
-            }			
-            
+                var drawings = ws.Value.Drawings;
+            }
+
             ExcelWorksheet worksheet = _worksheets[Index];
             if (worksheet.Drawings.Count > 0)
             {
@@ -917,12 +917,12 @@ namespace OfficeOpenXml
             {
                 worksheet.Comments.Clear();
             }
-                        
+
 		    //Delete any parts still with relations to the Worksheet.
             DeleteRelationsAndParts(worksheet.Part);
 
 
-            //Delete the worksheet part and relation from the package 
+            //Delete the worksheet part and relation from the package
 			_pck.Workbook.Part.DeleteRelationship(worksheet.RelationshipID);
 
             //Delete worksheet from the workbook XML
@@ -964,7 +964,7 @@ namespace OfficeOpenXml
                     DeleteRelationsAndParts(_pck.Package.GetPart(UriHelper.ResolvePartUri(rel.SourceUri, rel.TargetUri)));
                 }
                 part.DeleteRelationship(rel.Id);
-            }            
+            }
             _pck.Package.DeletePart(part.Uri);
         }
 
@@ -1009,16 +1009,16 @@ namespace OfficeOpenXml
 			_worksheets = worksheets;
 		}
 
-#if NETSTANDARD
+#if NETSTANDARD || NET
         /// <summary>
-        /// Returns the worksheet at the specified position. 
+        /// Returns the worksheet at the specified position.
         /// </summary>
         /// <param name="PositionID">The position of the worksheet. Collection is zero-based or one-base depending on the Package.Compatibility.IsWorksheets1Based propery. Default is Zero based</param>
         /// <seealso cref="ExcelPackage.Compatibility"/>
         /// <returns></returns>
 #else
         /// <summary>
-        /// Returns the worksheet at the specified position. 
+        /// Returns the worksheet at the specified position.
         /// </summary>
         /// <param name="PositionID">The position of the worksheet. Collection is zero-based or one-base depending on the Package.Compatibility.IsWorksheets1Based propery. Default is One based</param>
         /// <seealso cref="ExcelPackage.Compatibility"/>
@@ -1131,7 +1131,7 @@ namespace OfficeOpenXml
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sourceName"></param>
 		public void MoveToStart(string sourceName)
@@ -1145,7 +1145,7 @@ namespace OfficeOpenXml
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sourcePositionId"></param>
 		public void MoveToStart(int sourcePositionId)
@@ -1154,7 +1154,7 @@ namespace OfficeOpenXml
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sourceName"></param>
 		public void MoveToEnd(string sourceName)
@@ -1168,7 +1168,7 @@ namespace OfficeOpenXml
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sourcePositionId"></param>
 		public void MoveToEnd(int sourcePositionId)
@@ -1274,13 +1274,13 @@ namespace OfficeOpenXml
 
 #endregion
         public void Dispose()
-        {    
+        {
 		if (_worksheets != null)
 	     	{
-		     foreach (var sheet in this._worksheets.Values) 
-		     { 
-			 ((IDisposable)sheet).Dispose(); 
-		     } 
+		     foreach (var sheet in this._worksheets.Values)
+		     {
+			 ((IDisposable)sheet).Dispose();
+		     }
 		     _worksheets = null;
 		     _pck = null;
 		}

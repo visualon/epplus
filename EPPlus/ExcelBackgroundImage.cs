@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  *******************************************************************************
  * Jan Källman		Added		10-SEP-2009
@@ -50,7 +50,7 @@ namespace OfficeOpenXml
     {
         ExcelWorksheet _workSheet;
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="nsm"></param>
         /// <param name="topNode">The topnode of the worksheet</param>
@@ -60,10 +60,10 @@ namespace OfficeOpenXml
         {
             _workSheet = workSheet;
         }
-        
+
         const string BACKGROUNDPIC_PATH = "d:picture/@r:id";
         /// <summary>
-        /// The background image of the worksheet. 
+        /// The background image of the worksheet.
         /// The image will be saved internally as a jpg.
         /// </summary>
         public Image Image
@@ -88,7 +88,7 @@ namespace OfficeOpenXml
                 }
                 else
                 {
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
                     var img=ImageCompat.GetImageAsByteArray(value);
 #else
                     ImageConverter ic = new ImageConverter();
@@ -101,7 +101,7 @@ namespace OfficeOpenXml
             }
         }
         /// <summary>
-        /// Set the picture from an image file. 
+        /// Set the picture from an image file.
         /// The image file will be saved as a blob, so make sure Excel supports the image format.
         /// </summary>
         /// <param name="PictureFile">The image file.</param>
@@ -147,7 +147,7 @@ namespace OfficeOpenXml
             var relID = GetXmlNodeString(BACKGROUNDPIC_PATH);
             if (relID != "")
             {
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
                 var img=ImageCompat.GetImageAsByteArray(Image);
 #else
                 var ic = new ImageConverter();
@@ -157,7 +157,7 @@ namespace OfficeOpenXml
 
                 //Delete the relation
                 _workSheet.Part.DeleteRelationship(relID);
-                
+
                 //Delete the image if there are no other references.
                 if (ii != null && ii.RefCount == 1)
                 {
@@ -166,7 +166,7 @@ namespace OfficeOpenXml
                         _workSheet.Part.Package.DeletePart(ii.Uri);
                     }
                 }
-                
+
             }
         }
     }

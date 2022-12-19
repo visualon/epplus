@@ -13,17 +13,17 @@
 
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
  * The GNU Lesser General Public License can be viewed at http://www.opensource.org/licenses/lgpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
  *
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  * ******************************************************************************
  * Jan Källman		                Initial Release		        2009-10-01
@@ -65,7 +65,7 @@ namespace OfficeOpenXml.Drawing
                 ContentType = GetContentType(f.Extension);
                 _image = Image.FromStream(Part.GetStream());
 
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
                 byte[] iby = ImageCompat.GetImageAsByteArray(_image);
 #else
                 ImageConverter ic =new ImageConverter();
@@ -130,7 +130,7 @@ namespace OfficeOpenXml.Drawing
             var imagestream = new FileStream(imageFile.FullName, FileMode.Open, FileAccess.Read);
             _image = Image.FromStream(imagestream);
 
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             var img = ImageCompat.GetImageAsByteArray(_image);
 #else
             ImageConverter ic = new ImageConverter();
@@ -239,7 +239,7 @@ namespace OfficeOpenXml.Drawing
         #endregion
         private string SavePicture(Image image)
         {
-#if (NETSTANDARD)
+#if NETSTANDARD || NET
             byte[] img = ImageCompat.GetImageAsByteArray(image);
 #else
             ImageConverter ic = new ImageConverter();
@@ -333,7 +333,7 @@ namespace OfficeOpenXml.Drawing
 
                         //Create relationship
                         TopNode.SelectSingleNode("xdr:pic/xdr:blipFill/a:blip/@r:embed", NameSpaceManager).Value = relID;
-                        //_image.Save(Part.GetStream(FileMode.Create, FileAccess.Write), _imageFormat);   //Always JPEG here at this point. 
+                        //_image.Save(Part.GetStream(FileMode.Create, FileAccess.Write), _imageFormat);   //Always JPEG here at this point.
                     }
                     catch (Exception ex)
                     {
@@ -342,7 +342,7 @@ namespace OfficeOpenXml.Drawing
                 }
             }
         }
-        
+
         /// <summary>
         /// Image format
         /// </summary>
