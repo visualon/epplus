@@ -437,11 +437,7 @@ namespace OfficeOpenXml
 
         internal ImageInfo AddImage(byte[] image, Uri uri, string contentType, string ext)
         {
-#if NETSTANDARD || NET
-            var hashProvider = SHA1.Create();
-#else
-            var hashProvider = new SHA1CryptoServiceProvider();
-#endif
+            using var hashProvider = SHA1.Create();
             var hash = BitConverter.ToString(hashProvider.ComputeHash(image)).Replace("-", "");
             lock (_images)
             {
@@ -465,11 +461,7 @@ namespace OfficeOpenXml
         }
         internal ImageInfo LoadImage(byte[] image, Uri uri, Packaging.ZipPackagePart imagePart)
         {
-#if NETSTANDARD || NET
-            var hashProvider = SHA1.Create();
-#else
-            var hashProvider = new SHA1CryptoServiceProvider();
-#endif
+            using var hashProvider = SHA1.Create();
             var hash = BitConverter.ToString(hashProvider.ComputeHash(image)).Replace("-", "");
             if (_images.ContainsKey(hash))
             {
@@ -499,11 +491,7 @@ namespace OfficeOpenXml
         }
         internal ImageInfo GetImageInfo(byte[] image)
         {
-#if NETSTANDARD || NET
-            var hashProvider = SHA1.Create();
-#else
-            var hashProvider = new SHA1CryptoServiceProvider();
-#endif
+            using var hashProvider = SHA1.Create();
             var hash = BitConverter.ToString(hashProvider.ComputeHash(image)).Replace("-", "");
 
             if (_images.ContainsKey(hash))

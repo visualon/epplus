@@ -1,4 +1,4 @@
-﻿/*******************************************************************************
+/*******************************************************************************
  * You may amend and distribute as you like, but don't remove this header!
  *
  * EPPlus provides server-side generation of Excel 2007/2010 spreadsheets.
@@ -89,7 +89,7 @@ namespace OfficeOpenXml.VBA
                 byte[] data;
                 //Set the key
                 PasswordKey = new byte[4];
-                RandomNumberGenerator r = RandomNumberGenerator.Create();
+                using var r = RandomNumberGenerator.Create();
                 r.GetBytes(PasswordKey);
 
                 data = new byte[Password.Length + 4];
@@ -99,7 +99,7 @@ namespace OfficeOpenXml.VBA
                 Array.Copy(PasswordKey, 0, data, data.Length - 4, 4);
 
                 //Calculate Hash
-                var provider = SHA1.Create();
+                using var provider = SHA1.Create();
                 PasswordHash = provider.ComputeHash(data);
                 _project.ProjectID = "{00000000-0000-0000-0000-000000000000}";
             }

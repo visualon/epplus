@@ -1,4 +1,4 @@
-﻿/*******************************************************************************
+/*******************************************************************************
  * You may amend and distribute as you like, but don't remove this header!
  *
  * EPPlus provides server-side generation of Excel 2007/2010 spreadsheets.
@@ -344,7 +344,7 @@ namespace OfficeOpenXml.VBA
         private string Encrypt(byte[] value)
         {
             byte[] seed = new byte[1];
-            var rn = RandomNumberGenerator.Create();
+            using var rn = RandomNumberGenerator.Create();
             rn.GetBytes(seed);
             BinaryWriter br = new BinaryWriter(new MemoryStream());
             byte[] enc = new byte[value.Length + 10];

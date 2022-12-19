@@ -1,4 +1,4 @@
-﻿using OfficeOpenXml.Utils;
+using OfficeOpenXml.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -99,7 +99,7 @@ namespace OfficeOpenXml
         public void SetPassword(string password)
         {
             var byPwd = Encoding.Unicode.GetBytes(password);
-            var rnd = RandomNumberGenerator.Create();
+            using var rnd = RandomNumberGenerator.Create();
             var bySalt=new byte[16];
             rnd.GetBytes(bySalt);
 
@@ -108,11 +108,7 @@ namespace OfficeOpenXml
             SpinCount = SpinCount < 100000 ? 100000 : SpinCount;
 
             //Combine salt and password and calculate the initial hash
-#if NETSTANDARD || NET
-            var hp = SHA512.Create();
-#else
-            var hp=new SHA512CryptoServiceProvider();
-#endif
+            using var hp = SHA512.Create();
             var buffer =new byte[byPwd.Length + bySalt.Length];
             Array.Copy(bySalt, buffer, bySalt.Length);
             Array.Copy(byPwd, 0, buffer, 16, byPwd.Length);
