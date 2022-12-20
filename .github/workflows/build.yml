@@ -26,11 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
-        with:
-          dotnet-version: 3.1.x
-
       - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
         with:
           path: ~/.nuget/packages
