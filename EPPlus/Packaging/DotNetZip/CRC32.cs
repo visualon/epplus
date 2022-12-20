@@ -27,7 +27,6 @@
 
 
 using System;
-using Interop = System.Runtime.InteropServices;
 
 namespace OfficeOpenXml.Packaging.Ionic.Crc
 {
@@ -42,11 +41,11 @@ namespace OfficeOpenXml.Packaging.Ionic.Crc
     ///   archive files.
     /// </remarks>
 
-//    [Interop.GuidAttribute("ebc25cf6-9120-4283-b972-0e5520d0000C")]
-//    [Interop.ComVisible(true)]
-//#if !NETCF
-//    [Interop.ClassInterface(Interop.ClassInterfaceType.AutoDispatch)]
-//#endif
+    //    [Interop.GuidAttribute("ebc25cf6-9120-4283-b972-0e5520d0000C")]
+    //    [Interop.ComVisible(true)]
+    //#if !NETCF
+    //    [Interop.ClassInterface(Interop.ClassInterfaceType.AutoDispatch)]
+    //#endif
     internal class CRC32
     {
         /// <summary>
@@ -793,7 +792,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Crc
             throw new NotSupportedException();
         }
 
-#if !NETSTANDARD
+#if NETFRAMEWORK
         void IDisposable.Dispose()
         {
             Close();

@@ -28,7 +28,6 @@
 
 using System;
 using System.IO;
-using System.Collections.Generic;
 
 namespace OfficeOpenXml.Packaging.Ionic.Zip
 {
@@ -1140,7 +1139,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
             return AddEntry(entryName, content, System.Text.Encoding.UTF8);
 #else
             return AddEntry(entryName, content,
-#if NETSTANDARD
+#if NETSTANDARD || NET
                 System.Text.Encoding.GetEncoding("UTF-8")
 #else
                 System.Text.Encoding.Default
@@ -1671,7 +1670,7 @@ namespace OfficeOpenXml.Packaging.Ionic.Zip
             return UpdateEntry(entryName, content, System.Text.Encoding.UTF8);
 #else
             return UpdateEntry(entryName, content,
-#if NETSTANDARD
+#if NETSTANDARD || NET
                 System.Text.Encoding.GetEncoding("UTF-8")
 #else
                 System.Text.Encoding.Default
