@@ -1,23 +1,22 @@
-using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using OfficeOpenXml;
+using OfficeOpenXml.Drawing;
+using OfficeOpenXml.Drawing.Chart;
 using OfficeOpenXml.FormulaParsing.Logging;
 using OfficeOpenXml.Style;
-using System.Data;
 using OfficeOpenXml.Table;
-using System.Collections.Generic;
 using OfficeOpenXml.Table.PivotTable;
-using OfficeOpenXml.Drawing.Chart;
-using System.Text;
-using System.Globalization;
-using OfficeOpenXml.Drawing;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace EPPlusTest
 {
@@ -2516,13 +2515,9 @@ namespace EPPlusTest
         [TestMethod]
         public void Issue246()
         {
+            var expectedDateString = "den 31 december 2018";
 #if !NETFRAMEWORK
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                Assert.Inconclusive("Only working on windows.");
-#if NET6_0_OR_GREATER
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                Assert.Inconclusive("Doesn't work on windows on net6.0.");
-#endif
+            expectedDateString = "måndag 31 december 2018";
 #endif
 
             InitBase();
@@ -2538,8 +2533,8 @@ namespace EPPlusTest
             try
             {
                 System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("sv-Se");
-                Assert.AreEqual(ws.Cells["A1"].Text, "den 31 december 2018");
-                Assert.AreEqual(ws.GetValue<DateTime>(1, 1), new DateTime(2018, 12, 31));
+                Assert.AreEqual(expectedDateString, ws.Cells["A1"].Text);
+                Assert.AreEqual(new DateTime(2018, 12, 31), ws.GetValue<DateTime>(1, 1));
             }
             finally
             {
@@ -2654,7 +2649,7 @@ namespace EPPlusTest
         {
             var p = OpenTemplatePackage("Issue460.xlsx");
             var ws = p.Workbook.Worksheets[0];
-            var newWs=p.Workbook.Worksheets.Add("NewSheet");
+            var newWs = p.Workbook.Worksheets.Add("NewSheet");
             ws.Cells.Copy(newWs.Cells);
             SaveWorksheet("Issue460_saved.xlsx");
         }
