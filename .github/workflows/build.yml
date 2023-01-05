@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - "**"
+      - '**'
 
 env:
   DOTNET_NOLOGO: true # https://github.com/actions/setup-dotnet#environment-variables-to-use-with-dotnet
