@@ -8,11 +8,11 @@
   "timezone": "Europe/Berlin",
   "packageRules": [
     {
-      "updateTypes": ["minor"],
+      "matchUpdateTypes": ["minor"],
       "dependencyDashboardApproval": false
     },
     {
-      "matchPackageNames":["System.Drawing.Common"],
+      "matchPackageNames": ["System.Drawing.Common"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     }
