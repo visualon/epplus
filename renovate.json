@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["visualon/renovate-config"],
+  "extends": ["visualon/renovate-config", "visualon/renovate-config:automergePatch"],
   "forkProcessing": "enabled",
   "labels": ["deps"],
   "automergeType": "pr",
