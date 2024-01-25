@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net472</TargetFrameworks>
-    <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net8.0;net472</TargetFrameworks>
+    <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">net6.0;net8.0</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>EPPlusTest.snk</AssemblyOriginatorKeyFile>
     <Description>Package Description</Description>
