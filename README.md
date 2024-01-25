@@ -1,9 +1,9 @@
+# EPPlus
+
 [![build](https://github.com/visualon/epplus/actions/workflows/build.yml/badge.svg)](https://github.com/visualon/epplus/actions/workflows/build.yml)
 [![Nuget](https://img.shields.io/nuget/v/VisualOn.EPPlus)](https://www.nuget.org/packages/VisualOn.EPPlus)
 [![codecov](https://codecov.io/github/visualon/epplus/branch/main/graph/badge.svg?token=mv605KaAbJ)](https://codecov.io/github/visualon/epplus)
 ![LICENSE](https://img.shields.io/github/license/visualon/epplus)
-
-# EPPlus
 
 This is a fork from [Jan Källman](https://github.com/JanKallman/EPPlus).
 
@@ -12,9 +12,7 @@ Create advanced Excel spreadsheets using .NET, without the need of interop.
 EPPlus is a .NET library that reads and writes Excel files using the Office Open XML format (xlsx).
 EPPlus has no dependencies other than .NET.
 
-
-
-## EPPlus supports:
+## EPPlus supports
 
 - Cell Ranges
 - Cell styling (Border, Color, Fill, Font, Number, Alignments)
