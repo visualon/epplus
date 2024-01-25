@@ -2,8 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0;net8.0;net462</TargetFrameworks>
-    <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">netstandard2.0;net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net8.0;net472</TargetFrameworks>
+    <TargetFrameworks Condition=" $([MSBuild]::IsOSUnixLike()) ">net6.0;net8.0</TargetFrameworks>
     <PackageId>VisualOn.EPPlus</PackageId>
     <PackageProjectUrl>https://github.com/visualon/epplus</PackageProjectUrl>
     <Authors>Jan Källman; VisualOn</Authors>
@@ -31,27 +31,13 @@
     <Compile Remove="Packaging\DotNetZip\ZipFile.SaveSelfExtractor.cs" />
   </ItemGroup>
 
-   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Security" />
 
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Drawing.Common" Version="4.7.3" />
-    <PackageReference Include="System.Reflection" Version="4.3.0" />
-    <PackageReference Include="System.Security.Claims" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="6.0.4" />
-    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net8.0'">
