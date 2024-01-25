@@ -27,14 +27,14 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3.3.3
+      - uses: actions/cache/restore@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3.3.3
         with:
           path: ~/.nuget/packages
           # Look to see if there is a cache hit for the corresponding requirements file
           # key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props', '**/*.targets') }}
-          # restore-keys: |
-          #   ${{ runner.os }}-nuget
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
       - name: restore
         run: dotnet restore
