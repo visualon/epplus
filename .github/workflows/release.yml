@@ -64,7 +64,31 @@ jobs:
           NUGET_SOURCE: https://api.nuget.org/v3/index.json
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
 
-      - uses: marvinpinto/action-automatic-releases@919008cf3f741b179569b7a6fb4d8860689ab7f0 # v1.2.1
+  gh-release:
+    needs:
+      - release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # Important for changelog
+          filter: blob:none
+          show-progress: false
+
+      - name: prepare version
+        run: echo VERSION=${GITHUB_REF_NAME#v} >> $GITHUB_ENV # trim leading 'v' from tag name
+
+      - name: Generate changelog with git-cliff
+        uses: tj-actions/git-cliff@b8b856ab6829a813d4ed58476b6faaec9c2b24ef # v1.4.2
+        with:
+          args: --latest --strip all
+          output: "CHANGELOG.md"
+
+      - name: Create Release
+        uses: ncipollo/release-action@6c75be85e571768fa31b40abf38de58ba0397db5 # v1.13.0
+        with:
+          bodyFile: "CHANGELOG.md"
+          name: ${{ env.VERSION }}
           prerelease: ${{ contains(github.ref_name, '-') }}
