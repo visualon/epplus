@@ -34,7 +34,8 @@
 
 
   <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))" >
-    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="6.0.5.128" />
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="6.0.5.128" Condition="$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture) == X64" />
+    <PackageReference Include="Curiosity.runtime.osx.10.10-arm64.CoreCompat.System.Drawing" Version="6.0.5.4" Condition="$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture) == Arm64" />
   </ItemGroup>
 
   <ItemGroup>
