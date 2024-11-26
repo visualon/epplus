@@ -1,56 +1,56 @@
 ﻿/*******************************************************************************
  * You may amend and distribute as you like, but don't remove this header!
- * 
+ *
  * All rights reserved.
- * 
- * EPPlus is an Open Source project provided under the 
- * GNU General Public License (GPL) as published by the 
+ *
+ * EPPlus is an Open Source project provided under the
+ * GNU General Public License (GPL) as published by the
  * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * EPPlus provides server-side generation of Excel 2007 spreadsheets.
  * See https://github.com/JanKallman/EPPlus for details.
  *
  *
- * 
+ *
  * The GNU General Public License can be viewed at http://www.opensource.org/licenses/gpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
- * 
- * The code for this project may be used and redistributed by any means PROVIDING it is 
- * not sold for profit without the author's written consent, and providing that this notice 
+ *
+ * The code for this project may be used and redistributed by any means PROVIDING it is
+ * not sold for profit without the author's written consent, and providing that this notice
  * and the author's name and all copyright notices remain intact.
- * 
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ *
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  *
  * Code change notes:
- * 
+ *
  * Author							Change						Date
  *******************************************************************************
  * Jan Källman		Added		10-SEP-2009
  *******************************************************************************/
 
 /*
- * Sample code demonstrating how to generate Excel spreadsheets on the server using 
+ * Sample code demonstrating how to generate Excel spreadsheets on the server using
  * Office Open XML and the ExcelPackage wrapper classes.
- * 
+ *
  * ExcelPackage provides server-side generation of Excel 2007 spreadsheets.
  * See http://www.codeplex.com/ExcelPackage for details.
- * 
+ *
  * Sample 3: Creates a workbook based on a template and populates using the database data.
- * 
- * Copyright 2007 © Dr John Tunnicliffe 
+ *
+ * Copyright 2007 © Dr John Tunnicliffe
  * mailto:dr.john.tunnicliffe@btinternet.com
  * All rights reserved.
- * 
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ *
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  */
 using System;
 using System.IO;
 using System.Xml;
 using OfficeOpenXml;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Drawing;
 using OfficeOpenXml.Style;
 
@@ -60,7 +60,7 @@ namespace EPPlusSamples
 	{
 		/// <summary>
 		/// Sample 3 - creates a workbook and populates using data from the AdventureWorks database
-		/// This sample requires the AdventureWorks database.  
+		/// This sample requires the AdventureWorks database.
         /// This one is from the orginal Excelpackage sample project, but without the template
 		/// </summary>
 		/// <param name="outputDir">The output directory</param>
@@ -81,7 +81,7 @@ namespace EPPlusSamples
                 {
                     const int startRow = 5;
                     int row = startRow;
-                    //Create Headers and format them 
+                    //Create Headers and format them
                     worksheet.Cells["A1"].Value = "AdventureWorks Inc.";
                     using (ExcelRange r = worksheet.Cells["A1:G1"])
                     {
@@ -169,7 +169,7 @@ namespace EPPlusSamples
                         sqlConn.Close();
                     }
 
-                    // lets set the header text 
+                    // lets set the header text
                     worksheet.HeaderFooter.OddHeader.CenteredText = "AdventureWorks Inc. Sales Report";
                     // add the page number to the footer plus the total number of pages
                     worksheet.HeaderFooter.OddFooter.RightAlignedText =
@@ -179,7 +179,7 @@ namespace EPPlusSamples
                     // add the file path to the footer
                     worksheet.HeaderFooter.OddFooter.LeftAlignedText = ExcelHeaderFooter.FilePath + ExcelHeaderFooter.FileName;
                 }
-                // we had better add some document properties to the spreadsheet 
+                // we had better add some document properties to the spreadsheet
 
                 // set some core property values
                 xlPackage.Workbook.Properties.Title = "Sample 3";

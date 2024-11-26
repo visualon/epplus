@@ -1,27 +1,27 @@
-﻿/* 
+﻿/*
  * You may amend and distribute as you like, but don't remove this header!
- * 
+ *
  * EPPlus provides server-side generation of Excel 2007 spreadsheets.
  * See https://github.com/JanKallman/EPPlus for details.
- * 
+ *
  * All rights reserved.
- * 
- * EPPlus is an Open Source project provided under the 
- * GNU General Public License (GPL) as published by the 
+ *
+ * EPPlus is an Open Source project provided under the
+ * GNU General Public License (GPL) as published by the
  * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- * 
+ *
  * The GNU General Public License can be viewed at http://www.opensource.org/licenses/gpl-license.php
  * If you unfamiliar with this license or have questions about it, here is an http://www.gnu.org/licenses/gpl-faq.html
- * 
- * The code for this project may be used and redistributed by any means PROVIDING it is 
- * not sold for profit without the author's written consent, and providing that this notice 
+ *
+ * The code for this project may be used and redistributed by any means PROVIDING it is
+ * not sold for profit without the author's written consent, and providing that this notice
  * and the author's name and all copyright notices remain intact.
- * 
- * All code and executables are provided "as is" with no warranty either express or implied. 
+ *
+ * All code and executables are provided "as is" with no warranty either express or implied.
  * The author accepts no liability for any damage or loss of business that this product may cause.
  *
  *  Code change notes:
- * 
+ *
  * Author							Change						Date
  * ******************************************************************************
  * Jan Källman                      Added       		        2011-04-18
@@ -32,19 +32,19 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using OfficeOpenXml;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using OfficeOpenXml.Table.PivotTable;
 using OfficeOpenXml.Drawing.Chart;
 namespace EPPlusSamples
 {
     /// <summary>
-    /// This class shows how to use pivottables 
+    /// This class shows how to use pivottables
     /// </summary>
     public static class Sample12
     {
         public class SalesDTO
         {
-            public string Title { get; set; }            
+            public string Title { get; set; }
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
             public string LastName { get; set; }
@@ -87,14 +87,14 @@ namespace EPPlusSamples
 
                 var dataRange = wsData.Cells["A1"].LoadFromCollection
                     (
-                    from s in list 
-                    orderby s.LastName, s.FirstName 
-                    select s, 
-                   true, OfficeOpenXml.Table.TableStyles.Medium2);                
-                
+                    from s in list
+                    orderby s.LastName, s.FirstName
+                    select s,
+                   true, OfficeOpenXml.Table.TableStyles.Medium2);
+
                 wsData.Cells[2, 6, dataRange.End.Row, 6].Style.Numberformat.Format = "mm-dd-yy";
                 wsData.Cells[2, 7, dataRange.End.Row, 11].Style.Numberformat.Format = "#,##0";
-                
+
                 dataRange.AutoFitColumns();
 
                 var wsPivot = pck.Workbook.Worksheets.Add("PivotSimple");
@@ -108,12 +108,12 @@ namespace EPPlusSamples
                 var chart = wsPivot.Drawings.AddChart("PivotChart", eChartType.Pie, pivotTable1);
                 chart.SetPosition(1, 0, 4, 0);
                 chart.SetSize(600, 400);
-                    
+
                 var wsPivot2 = pck.Workbook.Worksheets.Add("PivotDateGrp");
                 var pivotTable2 = wsPivot2.PivotTables.Add(wsPivot2.Cells["A3"], dataRange, "PerEmploeeAndQuarter");
 
                 pivotTable2.RowFields.Add(pivotTable2.Fields["Name"]);
-                
+
                 //Add a rowfield
                 var rowField = pivotTable2.RowFields.Add(pivotTable2.Fields["OrderDate"]);
                 //This is a date field so we want to group by Years and quaters. This will create one additional field for years.
@@ -126,10 +126,10 @@ namespace EPPlusSamples
                 quaterField.Items[3].Text = "Q3";
                 quaterField.Items[4].Text = "Q4";
                 quaterField.Items[5].Text = ">"; //Values above max date, but we use auto so its not used
-                
+
                 //Add a pagefield
                 var pageField = pivotTable2.PageFields.Add(pivotTable2.Fields["Title"]);
-                
+
                 //Add the data fields and format them
                 dataField = pivotTable2.DataFields.Add(pivotTable2.Fields["SubTotal"]);
                 dataField.Format = "#,##0";
@@ -137,7 +137,7 @@ namespace EPPlusSamples
                 dataField.Format = "#,##0";
                 dataField = pivotTable2.DataFields.Add(pivotTable2.Fields["Freight"]);
                 dataField.Format = "#,##0";
-                
+
                 //We want the datafields to appear in columns
                 pivotTable2.DataOnRows = false;
 
